@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Serene Scribbles</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <style>
+    :root {
+  /* Light mode palette */
+--bg-main: rgba(245, 239, 230, 0.85); /* 85% opaque */
+--bg-section: rgba(255, 255, 255, 0.9);
+  --header-bg: #ffd199;
+  --footer-bg: #ffdcb2;
+  --text-main: #192b2b;
+  --text-title: #2f3e46;
+  --text-accent: #ca7056;
+  --card-bg: #fff;
+  --card-border: #e2e8f0;
+  --modal-bg: #fff;
+  --modal-text: #334155;
+  --modal-header: #1e293b;
+  --modal-date: #64748b;
+  --shadow: rgba(102, 119, 138, 0.1);
+  --shadow-hover: rgba(102, 119, 138, 0.2);
+  --border-focus: #a89462;
+  --link: #0c5c44;
+  --link-hover: #ae681e;
+  --quote: #556270;
+  --quote-author: #494949;
+}
+
+body.dark-mode {
+--bg-main: #181a20;
+--bg-section: #31343d;
+--header-bg: #23262f;
+--footer-bg: #23262f;
+--text-main: #e3e6ed;
+--text-title: #f7c59f;
+--text-accent: #f7b267;
+--card-bg: #23262f;
+--card-border: #353849;
+--modal-bg: #23262f;
+--modal-text: #e3e6ed;
+--modal-header: #f7b267;
+--modal-date: #b0b8c1;
+--shadow: rgba(30, 41, 59, 0.22);
+--shadow-hover: rgba(30, 41, 59, 0.32);
+--border-focus: #f7b267;
+--link: #7fd7b5;
+--link-hover: #f7b267;
+--quote: #b0b8c1;
+--quote-author: #b0b8c1;
+}
+
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Merriweather', serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Top-right tabs */
+.top-tabs {
+  position: absolute;
+  top: 32px;
+  right: 48px;
+  display: flex;
+  gap: 18px;
+  z-index: 10;
+}
+
+.tab-link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 18px;
+  border-radius: 7px;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.tab-link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 18px;
+  border-radius: 7px;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.tab-link:hover,
+.tab-link:focus {
+  background: var(--bg-section);
+  color: var(--link-hover);
+  outline: none;
+}
+
+/* About Me Modal */
+.about-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(32,32,40,0.22);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-modal.open {
+            display: flex;
+        }
+
+        .about-modal-content {
+            background: var(--bg-section);
+            border-radius: 18px;
+            box-shadow: 0 6px 32px var(--shadow);
+            padding: 38px 28px 32px 28px;
+            max-width: 1000px;
+            width: 90vw;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 32px;
+            min-height: 200px;
+        }
+
+        .about-modal-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 10px var(--shadow);
+            border: 2px solid var(--card-border);
+            flex-shrink: 0;
+        }
+
+        .about-modal-text {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .about-modal-text p {
+            font-size: 1.1rem;
+            color: var(--text-title);
+            font-family: 'Gabriela', serif;
+            margin: 0;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            word-spacing: 3px;
+        }
+
+        .about-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.7rem;
+            background: none;
+            border: none;
+            color: var(--text-accent);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .about-modal-close:hover {
+            color: var(--link-hover);
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .about-modal-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+                max-width: 400px;
+            }
+            
+            .about-modal-photo {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .about-modal-text {
+                text-align: center;
+            }
+        }
+/* Blur background when modal is open */
+body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
+  filter: blur(6px) grayscale(0.12);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .top-tabs { top: 16px; right: 10px; gap: 10px; }
+  .about-modal-content { padding: 22px 8px 18px 8px; }
+  .about-modal-photo { width: 80px; height: 80px; }
+}
+
+
+.header {
+  text-align: center;
+  padding: 20px 0 10px;
+  background: var(--header-bg);
+  box-shadow: inset 0 -1px 4px rgba(0,0,0,0.05);
+  user-select: none;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+}
+
+.site-title {
+  font-family: 'Gabriela', serif;
+  font-weight: 900;
+  font-size: 4.2rem;
+  color: var(--text-title);
+  padding-top: 14%;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+  transition: color 0.3s;
+}
+
+.poetry-quote-wrapper {
+  position: relative;
+  max-width: 720px;
+  height: 140px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.poetry-quote {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--quote);
+  line-height: 1.8;
+  padding: 0 20px;
+  font-weight: 500;
+  user-select: text;
+}
+
+.poetry-quote.active {
+  left: 0;
+  opacity: 1;
+  z-index: 2;
+}
+
+.poetry-quote.exit {
+  left: -100%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.quote-author {
+  margin-top: 18px;
+  font-size: 1rem;
+  font-style: normal;
+  font-family: "Montserrat";
+  font-weight: 600;
+  color: var(--quote-author);
+  letter-spacing: 0.03em;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 10000;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 2px solid var(--card-border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: background 0.3s, color 0.3s, border 0.3s;
+  outline: none;
+}
+.dark-mode-toggle:focus,
+.dark-mode-toggle:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-section);
+}
+
+/* Poems Section */
+.poems-section {
+  background-image: 
+    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
+    url('photo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 60px 0 60px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow);
+  margin-bottom: 40px;
+  transition: background 0.3s;
+}
+
+.poems-title {
+  font-family: 'Gabriela', serif;
+  font-size: 2.5rem;
+  color: var(--text-title);
+  text-align: center;
+  margin-bottom: 36px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+
+body.dark-mode .poems-title {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.poems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 40px;
+}
+
+.poem-card {
+background: var(--card-bg);
+border-radius: 14px;
+padding: 28px 26px 36px;
+box-shadow: 0 2px 10px var(--shadow);
+cursor: pointer;
+transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s, border 0.3s;
+border: 1px solid var(--card-border); /* <-- changed from transparent */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+min-height: 220px;
+}
+
+
+.poem-card:hover,
+.poem-card:focus-visible {
+  box-shadow: 0 8px 24px var(--shadow-hover);
+  transform: translateY(-6px);
+  outline: none;
+  border-color: var(--border-focus);
+  background: var(--bg-section);
+}
+
+.poem-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-accent);
+  margin-bottom: 14px;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  transition: color 0.3s;
+}
+
+.poem-preview {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  flex-grow: 1;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+body.dark-mode .poem-preview {
+  color: #b0b8c1;
+}
+
+.read-more {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+.read-more:hover,
+.read-more:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Short Stories Section */
+.stories-section {
+  background-image: 
+    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
+    url('photo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  padding: 60px 0 60px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow);
+  margin-bottom: 40px;
+  transition: background 0.3s;
+}
+
+/* Dark mode background overrides */
+body.dark-mode .poems-section,
+body.dark-mode .stories-section {
+  background-image: 
+    linear-gradient(rgba(24, 26, 32, 0.5), rgba(24, 26, 32, 0.5)),
+    url('wallpaper-bw.png');
+}
+
+.stories-title {
+  font-family: 'Gabriela', serif;
+  font-size: 2.5rem;
+  color: var(--text-title);
+  text-align: center;
+  margin-bottom: 36px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+
+body.dark-mode .stories-title {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.story-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 28px 26px 36px;
+  box-shadow: 0 2px 10px var(--shadow);
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  transition: box-shadow 0.3s, transform 0.3s, background 0.3s, border 0.3s;
+  cursor: pointer;
+}
+
+.story-card:hover,
+.story-card:focus-visible {
+  box-shadow: 0 8px 24px var(--shadow-hover);
+  transform: translateY(-6px);
+  outline: none;
+  border-color: var(--border-focus);
+  background: var(--bg-section);
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text-accent);
+  margin-bottom: 12px;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  transition: color 0.3s;
+}
+
+.story-preview {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.08rem;
+  color: #5b5b5b;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+.say-hello-section {
+  background-image: 
+    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
+    url('photo.png');
+  border-radius: 18px;
+  box-shadow: 0 8px 24px var(--shadow);
+  max-width: 70%;
+  margin: 60px auto 30px auto;
+  padding: 48px 32px;
+}
+
+body.dark-mode .say-hello-section {
+  background-image: 
+    linear-gradient(rgba(24, 26, 32, 0.3), rgba(24, 26, 32, 0.3)),
+    url('wallpaper-bw.png');
+  border-radius: 18px;
+  box-shadow: 0 8px 24px var(--shadow);
+  max-width: 70%;
+  margin: 60px auto 30px auto;
+  padding: 48px 32px;
+}
+
+.say-hello-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.hello-title {
+  flex: 1 1 220px;
+  max-width: 320px;
+  padding-right: 16px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hello-title h2 {
+  font-family: 'Gabriela', serif;
+  font-size: 2.1rem;
+  color: var(--text-accent);
+  margin-bottom: 10px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.hello-title p {
+  color: #000;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+.hello-form {
+  flex: 2 1 340px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hello-form label {
+  font-weight: 600;
+  color: var(--text-title);
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.hello-form input,
+.hello-form textarea {
+  padding: 10px 12px;
+  border: 1.5px solid var(--card-border);
+  border-radius: 7px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--bg-section);
+  color: var(--text-main);
+  transition: border 0.2s;
+}
+
+.hello-form input:focus,
+.hello-form textarea:focus {
+  border-color: var(--border-focus);
+  outline: none;
+}
+
+.hello-submit {
+  margin-top: 10px;
+  background: var(--text-accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.hello-submit:hover,
+.hello-submit:focus {
+  background: var(--link-hover);
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .say-hello-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .hello-title, .hello-form {
+    max-width: 100%;
+    padding-right: 0;
+  }
+}
+
+
+body.dark-mode .story-preview {
+  color: #b0b8c1;
+}
+
+.read-story {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+.read-story:hover,
+.read-story:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(185, 185, 185, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow-y: auto;
+  padding: 40px 20px;
+  -webkit-overflow-scrolling: touch;
+  font-family: 'Darker Grotesque', serif;
+  color: var(--modal-text);
+  user-select: text;
+}
+
+body.dark-mode .modal {
+  background: rgba(24, 28, 31, 0.97);
+  color: var(--modal-text);
+}
+
+.modal.active {
+  display: block;
+  opacity: 1;
+}
+
+.modal-content {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--modal-bg);
+  border-radius: 20px;
+  padding: 40px 48px 56px;
+  box-shadow: 0 12px 40px var(--shadow);
+  position: relative;
+  transition: background 0.3s, color 0.3s;
+}
+
+.modal-header {
+  border-bottom: 2px solid #e0e7ff;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+}
+
+body.dark-mode .modal-header {
+  border-bottom: 2px solid #353a40;
+}
+
+.modal-title {
+  font-family: 'Libertinus Mono', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--modal-header);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+}
+
+.modal-date {
+  font-size: 1rem;
+  color: var(--modal-date);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+.modal-poem, .modal-story {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  white-space: pre-line;
+  color: var(--modal-text);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  transition: color 0.3s;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 2.4rem;
+  color: var(--modal-date);
+  cursor: pointer;
+  transition: color 0.25s ease;
+  user-select: none;
+  line-height: 1;
+}
+
+.close-btn:hover,
+.close-btn:focus-visible {
+  color: var(--modal-header);
+  outline: none;
+}
+
+.footer {
+  text-align: center;
+  padding: 18px 10px 18px 10px;
+  font-size: 0.95rem;
+  color: #3e3e3e;
+  background: var(--footer-bg);
+  user-select: none;
+  border-top: 1px solid #e2e8f0;
+  letter-spacing: 0.04em;
+  margin-top: 0;
+  transition: background 0.3s;
+}
+
+body.dark-mode .footer {
+  color: #b0b8c1;
+  border-top: 1px solid #353a40;
+}
+
+/* Responsive styles (unchanged) */
+@media (max-width: 1024px) {
+  .site-title { font-size: 2.8rem; }
+  .poetry-quote-wrapper { height: 120px; padding: 0 16px; }
+  .poetry-quote { font-size: 1.15rem; padding: 0 16px; }
+  .modal-content { padding: 32px 32px 48px; }
+  .modal-title { font-size: 1.75rem; }
+  .modal-poem, .modal-story { font-size: 1.05rem; }
+}
+@media (max-width: 768px) {
+  .site-title { font-size: 2.2rem; }
+  .poetry-quote-wrapper { height: 110px; padding: 0 12px; }
+  .poetry-quote { font-size: 1.05rem; padding: 0 12px; }
+  .poems-grid, .stories-grid { grid-template-columns: 1fr; gap: 24px; }
+  .poem-card, .story-card { padding: 24px 20px 32px; }
+  .poem-title, .story-title { font-size: 1.3rem; }
+  .poem-preview, .story-preview { font-size: 0.95rem; min-height: 60px; }
+  .modal-content { width: 95%; padding: 28px 24px 36px; border-radius: 16px; }
+  .modal-title { font-size: 1.5rem; }
+  .modal-poem, .modal-story { font-size: 1rem; }
+  .footer { font-size: 0.9rem; padding: 36px 16px; }
+  .dark-mode-toggle { top: 16px; left: 16px; width: 40px; height: 40px; font-size: 1.2rem; }
+}
+@media (max-width: 600px) {
+  .poems-grid, .stories-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .site-title { font-size: 1.8rem; }
+  .poetry-quote-wrapper { height: 90px; padding: 0 10px; }
+  .poetry-quote { font-size: 1rem; padding: 0 10px; }
+  .poem-card, .story-card { padding: 20px 16px 28px; }
+  .poem-title, .story-title { font-size: 1.15rem; }
+  .poem-preview, .story-preview { font-size: 0.9rem; min-height: 54px; }
+  .modal-content { padding: 24px 20px 28px; }
+  .modal-title { font-size: 1.3rem; }
+  .modal-poem, .modal-story { font-size: 0.9rem; }
+}
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Calligraffitti&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Darker+Grotesque:wght@300..900&family=Gabriela&family=Iceland&family=Jockey+One&family=Knewave&family=Libertinus+Mono&family=Mogra&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Sriracha&family=Tektur:wght@400..900&family=Wallpoet&family=Zen+Dots&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Dark mode toggle button -->
+  <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+    <span id="darkModeIcon" aria-hidden="true">🌙</span>
+  </button>
+
+  <header class="header" role="banner">
+    <div class="container">
+      <h1 class="site-title">Serene Scribbles</h1>
+      <div class="poetry-quote-wrapper" aria-live="polite" aria-atomic="true">
+        <div class="poetry-quote active" id="quote1" tabindex="0">
+          "Poetry is not a turning loose of emotion, but an escape from emotion; it is not the expression of personality, but an escape from personality."
+          <div class="quote-author">— T.S. Eliot</div>
+        </div>
+        <div class="poetry-quote" id="quote2" tabindex="0">
+          "Poetry is not a turning loose of emotion, but an escape from emotion; it is not the expression of personality, but an escape from personality."
+          <div class="quote-author">— T.S. Eliot</div>
+        </div>
+      </div>
+    </div>
+    <nav class="top-tabs">
+  <a href="#poems-section" class="tab-link">Poems</a>
+  <a href="#stories-section" class="tab-link">Short Stories</a>
+  <button class="tab-link" id="aboutMeBtn" type="button">About Me</button>
+  <button class="tab-link" id="sayHelloTab">Say Hello</button>
+</nav>
+
+  </header>
+
+
+  <main>
+    <section id="poems-section" class="poems-section" role="region" aria-label="Poems">
+      <div class="container">
+        <div class="poems-title">Poems</div>
+        <div class="poems-grid" id="poemsGrid" aria-label="Poetry collection">
+          <!-- Poem cards inserted dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <section id="stories-section" class="stories-section" role="region" aria-label="Short Stories">
+      <div class="container">
+        <div class="stories-title">Short Stories</div>
+        <div class="stories-grid" id="storiesGrid" aria-label="Short story collection">
+          <!-- Story cards inserted dynamically -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+<div id="sayHelloModal" class="about-modal">
+  <div class="about-modal-content">
+    <button class="about-modal-close" id="closeSayHello" aria-label="Close">&times;</button>
+    <form id="helloForm" class="hello-form">
+      <div class="form-group">
+        <label for="helloName">Name</label>
+        <input type="text" id="helloName" name="helloName" required autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label for="helloEmail">Email</label>
+        <input type="email" id="helloEmail" name="helloEmail" required autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label for="helloMessage">Message</label>
+        <textarea id="helloMessage" name="helloMessage" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="hello-submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 Scribbled Sentiments. A collection of thoughts, dreams, and truths.</p>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="poemModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalPoem" tabindex="-1">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close details" onclick="closeModal()">&times;</button>
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-date" id="modalDate"></div>
+      </div>
+      <div class="modal-poem" id="modalPoem" style="display:none"></div>
+      <div class="modal-story" id="modalStory" style="display:none"></div>
+    </div>
+  </div>
+  <div id="aboutMeModal" class="about-modal">
+  <div class="about-modal-content">
+    <button class="about-modal-close" id="closeAboutMe" aria-label="Close">&times;</button>
+    <img src="og_photo.jpeg" alt="Photograph" class="about-modal-photo" />
+    <div class="about-modal-text">
+      <p>Hello, I'm Nandini Singh! So glad you found this little corner on the internet where I spill my thoughts through poems and stories. Writing helps me make sense of life's beautiful chaos — sometimes profound, sometimes wonderfully absurd. I'd love to know what you think of these poems and stories, so fill out the form below. I can handle criticism (promise I won't cry... much), but fair warning: I'm secretly convinced you'll fall in love with my words, after all confidence is key, right? Anyways, Have Fun Reading.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sayHelloTab = document.getElementById('sayHelloTab');
+  const sayHelloModal = document.getElementById('sayHelloModal');
+  const closeSayHello = document.getElementById('closeSayHello');
+
+  sayHelloTab.addEventListener('click', () => {
+  sayHelloModal.classList.add('open');
+  document.body.classList.add('modal-open');
+});
+
+closeSayHello.addEventListener('click', () => {
+  sayHelloModal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+});
+
+sayHelloModal.addEventListener('click', (e) => {
+  if (e.target === sayHelloModal) {
+    sayHelloModal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
+});
+</script>
+
+
+  <script>
+    // Dark mode toggle logic
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+
+    // Save preference in localStorage
+    function setDarkMode(isDark) {
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        darkModeIcon.textContent = '☀️';
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        document.body.classList.remove('dark-mode');
+        darkModeIcon.textContent = '🌙';
+        localStorage.setItem('darkMode', 'false');
+      }
+    }
+
+    // Toggle on click
+    darkModeToggle.addEventListener('click', () => {
+      setDarkMode(!document.body.classList.contains('dark-mode'));
+    });
+
+    // On load, set mode from localStorage
+    (function() {
+      const darkPref = localStorage.getItem('darkMode');
+      if (darkPref === 'true') setDarkMode(true);
+      else setDarkMode(false);
+    })();
+    // Poems data
+    const poems = [
+      {
+        title: "Because Orpheus Turned",
+        preview: "When someone asks me how do I believe in this idea of love...",
+        content: `When someone asks me
+how do I believe in this
+idea of love —
+that it stays,
+it waits,
+it razes down buildings,
+it turns around fate?
+
+The idea of love
+that is so big
+it consumes —
+and yet so small
+that it fits in the
+hands of your lover?
+
+So bright it blinds you —
+and yet so warm,
+that it is the sun
+on your neck,
+leaving trails on your back?
+
+The idea of love —
+that is poetic enough
+for you to use it to sleep,
+and gut-wrenching enough
+to feel your mouth going dry?
+
+The idea of love —
+that it is the stars and the moon
+when stars are dying balls of gases,
+and moon —
+it's just moon.
+
+You look at me,
+expecting an answer,
+an explanation for this madness.
+But I can't.
+
+I don't believe in love
+because it is this air that sweeps
+me off my feet,
+or knocks me down,
+or makes me brave.
+
+I believe in love because
+Orpheus turned.
+And because
+Achilles fought.
+But I also believe
+because Edifice followed,
+and Patroclus knew.
+
+And I know these are stories —
+myths,
+fantasies
+that rope you in to sell you
+the idea of love —
+in which souls are on fire.
+
+But —
+I believe in love because
+Virginia Woolf was wrong all along.
+How can our affairs
+be insignificant in front of the stars
+when the iron in our blood
+was forged in their center,
+and you were flowing through me
+before we even met?`,
+      },
+      {
+        title: "People Who Feel Like Galaxies",
+        preview: "There are people whose touch leave galaxies...",
+        content: `There are people
+whose touch leaves galaxies
+on your skin —
+so deep,
+you start believing
+you were born with the light of stars.
+
+Who know you haven’t slept in days,
+so they spin lullabies
+of moons dimming themselves
+and cozying up next to you.
+
+There are people
+who talk about hope
+like an old acquaintance —
+someone they will find
+just around the corner
+in the right parts of town.
+
+These people make the perfect coffee,
+and have the perfect stories
+to go with them.
+
+There are people
+who make you laugh so hard
+the sun is seen
+shining from your hair.
+They hold you tight
+when tears are your only language.
+
+People like comic strips
+in newspapers —
+tiny moments of joy
+amidst a plethora of destruction and wretchedness.
+
+People who trace shapes on your palms
+so you never forget to feel —
+if your eyes are tired
+of seeing too much.
+
+They curate playlists
+to cure your heartbreaks
+and also for the next love
+that knocks your door.
+
+People with whom
+conversations feel like handwritten letters,
+who look at you
+like you're the address
+of their long-lost postcards.
+
+People with the right mix
+of belief and magic —
+to make you think
+your Hogwarts letter
+is somewhere in your piles of books.
+
+There are people
+with faith higher than mountains
+and love deeper than fears.
+
+People who stay
+with so much force,
+you start believing
+they found their roots next to you.
+
+There are people
+who will turn around galaxies for you —
+and such people
+are the cosmos
+in themselves.`,
+      },
+      {
+        title: "Aur Bhi Dukh Hai?",
+        preview: "Faiz I have been wondering, a lot about love....",
+        content: `Faiz,
+I have been wondering —
+a lot about love.
+Reading poets and romantics,
+churn their souls
+and bleed ink on papers
+to paint something
+that looks somewhat like love.
+
+And I have questions.
+I have so many questions.
+
+So Faiz, when you said:
+"Aur bhi dukh hai zamane mein
+mohabbat ke siwa"
+Did you have a heartbreak?
+
+Were you lying somewhere
+in the house
+which did not smell of home anymore?
+Did you feel your heart
+beating in your throat,
+scarring all your insides
+with its broken pieces?
+
+And did you swallow it all in —
+with elixirs on the rocks
+and magic potions?
+Did you delete their playlists and photos
+only to restore them a little later,
+because the gallery looked empty
+without their faces
+peeking from the corners?
+
+Because if you did, Faiz —
+you would not believe
+there could exist a pain
+deeper than yours
+in the whole world put together,
+no matter how selfish the thought was.
+
+So Faiz, please tell me —
+when you said:
+"Raahtein aur bhi hai
+vasl ki raahat ke siwa"
+Had you hugged your lover
+and felt your body forget
+it is supposed to have bones?
+
+Did you lie down on their bed
+believing home could be
+this little bubble
+you both lived in?
+
+Did you meet someone
+with whom it felt a little less scary —
+even if it was for a second
+in a day,
+and that second felt enough
+for a lifetime?
+
+Were you able to feel so whole
+in yourself
+that you could look at someone
+and imagine how they
+just made it better?
+
+Did they remind you
+of the lines in your favourite poem —
+the ones you read twice?
+Or your favourite childhood memory?
+Or the laughter
+on the decks of all your future beach houses?
+
+Did you find someone, Faiz —
+who kept the front gate open
+because you might be a little late
+to get home?
+
+Because if you did, Faiz —
+you would know
+that time stopping still
+and the world coming to a halt
+doesn’t exist only in books.
+
+You would know, Faiz,
+about people
+who are peace in human form
+because they were lying
+right next to you.
+
+So Faiz —
+did you feel the love
+the romantics have been whispering about?
+Did you feel the heartbreaks
+this generation has pinned on its sleeves?
+
+Because if you didn’t —
+I am terribly sorry.
+I am so sorry
+you had to take the fall
+for all of us broken hearts
+and wounded souls
+who turn to poetry.
+
+But if you did —
+at least I know:
+"Aur bhi dukh hai zamane mei
+Mohabbat k siwa
+Raahtein aur bhi hai
+Vasl k raahat k siwa."`,
+      },
+      {
+        title: "The Poet and the Question",
+        preview: "When I see the brown of your eye and instantly...",
+        content: `When I see the brown of your eye —
+and instantly, honey comes to my mind —
+and before I can shush the poet in me,
+I start writing about
+sunsets and oranges,
+
+The lips you’ve eaten
+ever so slightly,
+like the blood was misplaced
+inside the skin,
+and had to come out
+in flashes of red —
+to colour an otherwise beige face,
+
+Like the walls of the room
+you’ve slept in
+since you were a child —
+intercepted with
+the photos of your graduation,
+losing the childhood
+like baby teeth —
+making place
+for your permanent adulthood.
+
+And you ask me,
+what am I thinking about?
+
+But I can’t tell you
+that I’m thankful to
+the atoms
+that first made the universe —
+to gravity for being
+the precise amount,
+stopping life from collapsing into itself.
+
+Like how poetries about your hair
+dissolve in my lungs
+and speak from my eyes
+when you ask me —
+what am I thinking about?
+
+Before the poet in me
+goes to sleep,
+it writes you 20 poems
+religiously,
+like a mother
+creating lullabies
+for its naughty child.
+
+It knows it doesn’t have to —
+but it knows how a thing of beauty
+must have compelled Keats,
+because how can the mole on your hand
+encapsulate the entire earth?
+
+The poet wants to
+tell you about how you enunciate
+between two full stops —
+and this is how sagas are written.
+
+When you ask me
+what are you thinking about?
+The poet wants to say:
+Energy can neither be created
+nor destroyed —
+which means
+all the poetries ever written
+must be about
+the galaxies in your laugh,
+or the stars in my hand
+holding yours.
+
+But instead,
+it says:
+"बे-ख़ुदी बे-सबब नहीं 'ग़ालिब'
+कुछ तो है जिस की पर्दा-दारी है"`,
+      },
+      {
+        title: "Scars, Wars, and Other Love Stories",
+        preview: "Would you take this person to the war with you?...",
+        content: `Would you take this person
+to the war with you?
+
+I would take this person
+to my childhood hauntings—
+for him to trace my scars
+and the walls of my wounds.
+
+I would take him to
+the coffee shop
+that serves the tea
+closest to Maa.
+
+I would take him to the hospital room
+I lost my grandfather in—
+to show him why
+the smell of bleach makes me puke
+and miss someone
+at the same time.
+
+I would take him under the cherry blossoms
+and tell him stories of each one
+falling to the ground.
+
+I would take him to
+the roads that feel like home,
+to the homes razed to the ground,
+to the bookstores,
+to the libraries,
+to the mountains,
+to the highs,
+to the lows.
+
+I would take this person
+to the ruins of my being
+and ask him—
+Will you make it hurt less
+for five minutes?
+
+I would take him to
+the mornings I sing and dance,
+and to the evenings
+I make good coffee.
+
+I would take this person
+where lovers meet,
+according to Rumi.
+
+So I will take him to wars,
+and battle,
+and destruction—
+because Patroclus died knowing
+he was worth fighting for.`,
+      },
+      {
+        title: "For the Moon in Me, For the Lake in You",
+        preview: "It must be hard for the lake to stay still...",
+        content: `It must be hard
+for the lake to stay still
+when the moon looks at it
+with so much love
+that you can see the moon
+in the waters—
+
+simmering, still, calm—
+a part of the lake,
+even though they are far apart.
+
+A part of the waters,
+even though it will never be.
+
+I know this
+because
+you look at me
+the same way.`,
+      },
+      {
+        title: "Love, Ripe and Warm",
+        preview: "I would peel an orange for you...",
+        content: `I would peel an orange for you.
+I would peel the corners of the sky
+and make it night
+if you want to sleep before the sun is up.
+
+I would peel the layers of green
+and make it snow,
+if that would mean you laugh and play
+with snow angels.
+
+I know you can peel an orange yourself—
+but I would peel one for you,
+and keep it in my fingernails,
+in case you get hungry
+and I forgot to peel one for you.
+
+In my fingernails, I would keep
+the skins you leave behind,
+if you ever want to go back
+to the traces of who you were.
+
+I know someone once wrote
+how they would invent God
+if it made her happy.
+I read about a doctor
+who invented gloves
+for his nurse wife.
+
+My grandfather invents a new name for himself
+every day,
+because my grandmother
+forgets every day.
+
+I know how people invent—
+and destroy—in love.
+How kings raze down cities
+for their queens,
+how scientists invent medicines.
+
+And I can’t say which is greater,
+but all I know is:
+I would peel my heart for you,
+ripe and warm,
+and place it in your palms,
+and say:
+Enjoy.`,
+      },
+      {
+        title: "Oh, To Be Loved by an Artist",
+        preview: "Oh, to be loved by an artist— to be...",
+        content: `Oh, to be loved by an artist—
+to be the blue
+in their Starry Night,
+to be written ballads about.
+
+To be loved by an artist
+is knowing the mark on your back
+will be written as a treasure map,
+is knowing your veins and the red
+are not just blood—
+but red threads
+keeping detectives sane.
+
+To be loved by an artist
+is knowing the back of your hand
+is the canvas for their paintings,
+is knowing there are sagas
+written about the pillow talks.
+
+To be loved by an artist
+is to have poems written
+on the nape of your neck—
+and then have poems written
+about the nape of your neck.
+
+To be the muse of poems,
+to be described as goddess,
+to be remembered as lines,
+as poetry,
+as paintings,
+as colours.
+
+To be the yellow
+that Van Gogh drank,
+to be written
+as nature,
+as chaos,
+as thunderstorms.
+
+To be the apple
+that rediscovered science.
+
+Oh, to be loved by an artist
+is realising—
+you are the art itself.`,
+      },
+      {
+        title: "Between Farsi Flowers and Sylvia Plath",
+        preview: "My English professor went crazy screaming...",
+        content: `My English professor
+went crazy screaming:
+“Love is like a lighthouse.”
+
+I scribbled it
+on the edge of my torn-down
+illustration of that day’s newspaper—
+like I would ever forget that line.
+
+Love is like a lighthouse.
+He was one dramatic man.
+He would make gestures,
+stretch his arms
+wide enough to fit the universe.
+
+And strangely, every time
+his hands moved,
+it felt like he was sculpting you.
+
+He had this crazy-scientist look,
+with the objectivity of a baby,
+and recited poetry
+like it was his mother tongue.
+
+More often than not,
+we found him outside
+looking at a flower,
+reciting its name in Farsi,
+and moving on
+like he was teaching a child
+how to learn the alphabet.
+
+You should have seen
+how he taught Plath.
+He said he felt bad for her soul,
+as this generation remembers her
+like a deceased relative—
+only when times are hard.
+
+But he felt even worse
+for the oven,
+because now people
+look at it differently.
+
+He would hum:
+"Hum tere pyaar mei saara aalam
+kho baithe hai, kho baithe hai..."
+like an explanation
+for his idiosyncrasies,
+like a justification
+for his madness,
+like the reason for his being.
+
+And today,
+as I’m packing the last boxes
+of your belongings,
+and the radio is playing:
+“Aur tum kehte ho
+aise pyaar ko
+bhool jaao, bhool jaao...”
+
+I remember stories
+about sailors going crazy,
+searching for lighthouses.
+
+And I realise why
+my crazy English professor said:
+Love is like a lighthouse.`,
+      }
+    ];
+
+    // Short stories data
+    const stories = [
+      {
+        title: "Love is a Ghazal We Don’t Finish",
+        preview: "What do you do when love keeps knocking on your door—just not with flowers, but with heartbreak in hand?",
+        content: `“वो मेरे घर नहीं आता, मैं उसके घर नहीं जाता —
+मगर इन एहतियातों से ताल्लुक़ मर नहीं जाता।”
+
+“What does that mean?”
+“What?”
+“Eti-something?”
+“एहतियातों. It means to be cautious of something. Precautionary.”
+
+“I have no clue how you remember these words and their meanings and these ghazals. I find it difficult to learn the directions to this café that we’ve been coming to for the last 9 months.”
+
+“First of all, you don’t have to learn. Ye shayari aapko feel hoti hai.
+And secondly, if you were good at remembering things, you wouldn’t have had to cheat on every paper since 3rd Standard.”
+
+“Which basically means we wouldn’t have been here today, and I would not have been paying for your chai for the last 45,000 years.”
+
+And the bickering continues as you pay for the tea with the wallet holding her photo, and the hand carrying my rubber band.
+
+I won’t tell you how I haven’t visited this place in 9 months.
+Not since the grey, cloudy morning we decided to not meet again—because she doesn’t like it.
+
+I don’t think the morning was actually grey. But anything and everything beyond the vapours of your coffee curling to create that sad smile on your face looked grey and bleak—like it was the coldest winter day Delhi has experienced in the last 23 years.
+
+And not the pleasant, crisp summer breeze the rest of the people seem to be enjoying.
+
+“You know I can never choose between you both.”
+“But you are.”
+
+“What’s that line by Fariz that you like a lot?”
+You slur on the call, mentioning one of the greatest poets ever lived like he’s your neighbour you awkwardly greet in the hallway to avoid sharing an elevator.
+
+It was 2:33 at night.
+You asked if you woke me up.
+I said yes, but it’s not a problem.
+
+You didn’t wake me up. I was up.
+Like I am every night.
+I know it was 2:33 because I was staring at the clock when it was 1:46... and 12:14... and 11:03.
+
+“It’s Faraz. And the lines are:
+
+रंजिश ही सही, दिल ही दुखाने के लिए आ,
+आ फिर से मुझे छोड़ के जाने के लिए आ।
+किस-किस को बताएँगे जुदाई का सबब हम,
+तू मुझ से ख़फ़ा है तो ज़माने के लिए आ।”
+
+“What does that mean?”
+“You need to sleep.”
+
+You are too drunk to understand these lines.
+Too coward to feel the words in your alcohol-soaked veins.
+Too small to understand the pain Faraz must’ve felt when he wrote:
+
+अब तक दिल-ए-ख़ुश-फ़हम को तुझ से हैं उम्मीदें,
+ये आख़िरी शम'एँ भी बुझाने के लिए आ।
+
+How someone crosses the line between desperation and hope when they are waiting for their lover to come back.
+Waiting for their lover to leave completely.
+Waiting for their lover to either shut the iron grills behind them or knock on the door for the last time.
+
+“What are you doing here?”
+
+You are at my door, with wine in one hand and heartbreak in another.
+
+They say people smell of what they are going through.
+Is it wrong of me to feel a little sadistic pleasure seeing you go through heartbreak—
+Smelling like me for a change, and not her.
+
+Smelling like blood and sadness,
+with your heart bleeding out on my carpet,
+as you cry for her
+and I hold your hand.
+
+"खुले थे शहर में सौ दर मगर इक हद के अंदर ही,
+कहाँ जाता अगर मैं लौट के फिर घर नहीं जाता।”
+
+“Wow. Looks like fighting with her turned you into a shayar after all.”
+
+You know I would open the door.
+Let you come in and make room for you in the mess I’ve been struggling to breathe in.
+
+You know I will give you my oxygen tank.
+And I know you will not pull me up to the surface.
+
+I know you thought of her
+when your hands started exploring me,
+almost on autopilot—
+but suddenly jerking away
+when you realised this route isn’t what your brain has learnt.
+
+It is trying to recreate the same strategies
+on a different battleground.
+
+“You should go. It’s getting late.”
+“How does this end?”
+
+As you knock on my door for the last time,
+and I shut the iron grills behind you, I say:
+
+“'वसीम' उस से कहो, दुनिया बहुत महदूद है मेरी—
+किसी दर का जो हो जाए, वो फिर दर दर नहीं जाता।”`
+      },
+      {
+        title: "The Clockmaker's Promise",
+        preview: "Every clock in the village stopped at midnight, except one...",
+        content: `In the heart of the village, the old clockmaker worked by candlelight. On the night every clock stopped, he wound a single one, whispering a promise to the gears. When the villagers awoke, only the clock in the square ticked on, marking a new beginning. They never learned the secret, but every year, at midnight, the clockmaker smiled at the chime.`
+      },
+      {
+        title: "Paper Boats",
+        preview: "He sent his dreams down the river, folded in paper boats...",
+        content: `Each morning, he folded a boat from yesterday's newspaper and set it afloat on the river. He watched them drift, carrying wishes and worries downstream. One day, a boat returned, waterlogged but intact, with a message written in a stranger's hand: "Dreams travel far, but some find their way home."`
+      }
+    ];
+
+    // Create poem cards dynamically
+    function createPoemCards() {
+      const grid = document.getElementById('poemsGrid');
+      grid.innerHTML = '';
+      poems.forEach((poem, index) => {
+        const card = document.createElement('div');
+        card.className = 'poem-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        card.setAttribute('aria-label', `Open full poem titled ${poem.title}`);
+        card.onclick = () => openModal('poem', index);
+        card.onkeypress = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal('poem', index);
+          }
+        };
+        card.innerHTML = `
+          <h3 class="poem-title">${poem.title}</h3>
+          <p class="poem-preview">${poem.preview}</p>
+          <a href="#" class="read-more" tabindex="-1" aria-hidden="true">Read full poem →</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Create story cards dynamically
+    function createStoryCards() {
+      const grid = document.getElementById('storiesGrid');
+      grid.innerHTML = '';
+      stories.forEach((story, index) => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        card.setAttribute('aria-label', `Open full story titled ${story.title}`);
+        card.onclick = () => openModal('story', index);
+        card.onkeypress = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal('story', index);
+          }
+        };
+        card.innerHTML = `
+          <h3 class="story-title">${story.title}</h3>
+          <p class="story-preview">${story.preview}</p>
+          <a href="#" class="read-story" tabindex="-1" aria-hidden="true">Read full story →</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Open modal with poem or story details
+    function openModal(type, index) {
+      const modal = document.getElementById('poemModal');
+      document.getElementById('modalPoem').style.display = 'none';
+      document.getElementById('modalStory').style.display = 'none';
+      if (type === 'poem') {
+        const poem = poems[index];
+        document.getElementById('modalTitle').textContent = poem.title;
+        document.getElementById('modalDate').textContent = poem.date || '';
+        document.getElementById('modalPoem').textContent = poem.content;
+        document.getElementById('modalPoem').style.display = 'block';
+      } else if (type === 'story') {
+        const story = stories[index];
+        document.getElementById('modalTitle').textContent = story.title;
+        document.getElementById('modalDate').textContent = story.date || '';
+        document.getElementById('modalStory').textContent = story.content;
+        document.getElementById('modalStory').style.display = 'block';
+      }
+      modal.style.display = 'block';
+      setTimeout(() => {
+        modal.classList.add('active');
+        modal.focus();
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+
+    document.querySelectorAll('.tab-link[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 40, // adjust offset for header
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // About Me modal logic
+  const aboutBtn = document.getElementById('aboutMeBtn');
+  const aboutModal = document.getElementById('aboutMeModal');
+  const closeBtn = document.getElementById('closeAboutMe');
+
+  aboutBtn.addEventListener('click', () => {
+    aboutModal.classList.add('open');
+    document.body.classList.add('modal-open');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    aboutModal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  });
+
+  // Close modal on outside click
+  aboutModal.addEventListener('click', (e) => {
+    if (e.target === aboutModal) {
+      aboutModal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  // Optional: Close modal on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      aboutModal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+    // Close modal
+    function closeModal() {
+      const modal = document.getElementById('poemModal');
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }, 300);
+    }
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      const modal = document.getElementById('poemModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      const modal = document.getElementById('poemModal');
+      if (event.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // Initialize cards
+    createPoemCards();
+    createStoryCards();
+
+    // Quotes for cycling
+    const quoteList = [
+      {
+        quote: `"Poetry is not a turning loose of emotion, but an escape from emotion; it is not the expression of personality, but an escape from personality."`,
+        author: "— T.S. Eliot"
+      },
+      {
+        quote: `"Poetry is when an emotion has found its thought and thought has found words."`,
+        author: "— Robert Frost"
+      },
+      {
+        quote: `"If you cannot be a poet, be the poem."`,
+        author: "— David Carradine"
+      },
+      {
+        quote: `"Poetry is thoughts that breathe, and words that burn."`,
+        author: "— Thomas Gray"
+      },
+      {
+        quote: `"You don't have to suffer to be a poet; adolescence is enough suffering for anyone."`,
+        author: "— John Ciardi"
+      },
+      {
+        quote: `"To read a poem is to hear it with our eyes; to hear it is to see it with our ears."`,
+        author: "— Octavio Paz"
+      },
+      {
+        quote: `"Poetry is an echo, asking a shadow to dance."`,
+        author: "— Carl Sandburg"
+      },
+      {
+        quote: `"I consider myself a poet first and a musician second. I live like a poet and I'll die like a poet."`,
+        author: "— Bob Dylan"
+      },
+      {
+        quote: `"Sometimes poetry is inspired by the conversation entered into by reading other poems."`,
+        author: "— John Barton"
+      },
+      {
+        quote: `"Poetry is a deal of joy and pain and wonder, with a dash of the dictionary."`,
+        author: "— Khalil Gibran"
+      }
+    ];
+
+    let quoteIndex = 0;
+    const quoteEl1 = document.getElementById("quote1");
+    const quoteEl2 = document.getElementById("quote2");
+    let showingFirst = true;
+
+    function cycleQuotes() {
+      quoteIndex = (quoteIndex + 1) % quoteList.length;
+      const nextQuote = quoteList[quoteIndex];
+      const incoming = showingFirst ? quoteEl2 : quoteEl1;
+      const outgoing = showingFirst ? quoteEl1 : quoteEl2;
+      incoming.innerHTML = `${nextQuote.quote}<div class="quote-author">${nextQuote.author}</div>`;
+      outgoing.classList.remove("active");
+      outgoing.classList.add("exit");
+      incoming.classList.remove("exit");
+      incoming.classList.add("active");
+      setTimeout(() => {
+        outgoing.classList.remove("exit");
+      }, 800);
+      showingFirst = !showingFirst;
+    }
+
+    setInterval(cycleQuotes, 10000);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init("8I6yQMKGaVeZQSA4J"); // Your EmailJS User ID
+
+    document.getElementById("helloForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let name = document.getElementById("helloName").value.trim();
+        let email = document.getElementById("helloEmail").value.trim();
+        let message = document.getElementById("helloMessage").value.trim();
+
+        if (name === "" || email === "" || message === "") {
+            alert("❌ Please fill out all fields.");
+            return;
+        }
+
+        emailjs.send("service_x4o76l6", "template_jzjhcdd", {
+            from_name: name,
+            from_email: email,
+            message: message
+        })
+        .then(function () {
+            alert("✅ Message sent successfully!");
+            document.getElementById("helloForm").reset();
+        })
+        .catch(function (error) {
+            alert("❌ Failed to send message. Check console for errors.");
+            console.error("EmailJS Error:", error);
+        });
+    });
+});
+</script>
+</body>
+</html>
+
+    
