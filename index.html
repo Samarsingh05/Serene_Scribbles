@@ -30,6 +30,7 @@
   --quote-author: #494949;
 }
 
+
 body.dark-mode {
 --bg-main: #181a20;
 --bg-section: #31343d;
@@ -445,20 +446,23 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
 
 .header {
   text-align: center;
-  padding: 20px 0 10px;
+  padding: 20px 0 30px; /* Increased bottom padding */
   background: var(--header-bg);
   box-shadow: inset 0 -1px 4px rgba(0,0,0,0.05);
   user-select: none;
   margin-bottom: 20px;
   transition: background 0.3s;
+  position: relative;
+  overflow: visible; /* Ensure content isn't cut off */
 }
+
 
 .site-title {
   font-family: 'Gabriela', serif;
   font-weight: 900;
-  font-size: 4rem;
+  font-size: 4.2rem;
   color: var(--text-title);
-  padding-top: 6%;
+  padding-top: 60px; /* Reduced from 14% to fixed value */
   margin-bottom: 24px;
   letter-spacing: -0.03em;
   transition: color 0.3s;
@@ -467,26 +471,32 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
 .poetry-quote-wrapper {
   position: relative;
   max-width: 720px;
-  height: 200px;
-  margin: 0 auto;
+  min-height: 140px; /* Changed from fixed height to min-height */
+  height: auto; /* Allow natural height */
+  margin: 0 auto 20px auto; /* Added bottom margin */
   overflow: hidden;
   padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .poetry-quote {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 100%;
-  width: 100%;
+  width: calc(100% - 40px); /* Account for padding */
   opacity: 0;
   transition: all 0.8s ease-in-out;
   font-style: italic;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: var(--quote);
   line-height: 1.8;
   padding: 0 20px;
   font-weight: 500;
   user-select: text;
+  transform: translateY(-50%); /* Center vertically */
+  box-sizing: border-box;
 }
 
 .poetry-quote.active {
@@ -510,6 +520,116 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   color: var(--quote-author);
   letter-spacing: 0.03em;
 }
+
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 15px 0 25px;
+  }
+  
+  .site-title { 
+    font-size: 3.2rem;
+    padding-top: 40px;
+  }
+  
+  .poetry-quote-wrapper { 
+    min-height: 120px;
+    max-width: 600px;
+    padding: 0 16px;
+  }
+  
+  .poetry-quote { 
+    font-size: 1.15rem;
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 0 20px;
+  }
+  
+  .site-title { 
+    font-size: 2.4rem;
+    padding-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .poetry-quote-wrapper { 
+    min-height: 100px;
+    max-width: 500px;
+    padding: 0 12px;
+  }
+  
+  .poetry-quote { 
+    font-size: 1.05rem;
+    padding: 0 12px;
+    line-height: 1.6;
+  }
+  
+  .quote-author {
+    margin-top: 15px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 10px 0 15px;
+  }
+  
+  .site-title { 
+    font-size: 2rem;
+    padding-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .poetry-quote-wrapper { 
+    min-height: 90px;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .poetry-quote { 
+    font-size: 1rem;
+    padding: 0 10px;
+    line-height: 1.5;
+  }
+  
+  .quote-author {
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 0 12px;
+  }
+  
+  .site-title { 
+    font-size: 1.8rem;
+    padding-top: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .poetry-quote-wrapper { 
+    min-height: 80px;
+    padding: 0 8px;
+  }
+  
+  .poetry-quote { 
+    font-size: 0.95rem;
+    padding: 0 8px;
+    line-height: 1.4;
+  }
+  
+  .quote-author {
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+}
+
 
 /* Dark mode toggle button */
 .dark-mode-toggle {
@@ -1031,9 +1151,6 @@ body.dark-mode .footer {
   .modal-poem, .modal-story { font-size: 1.05rem; }
 }
 @media (max-width: 768px) {
-  .site-title { font-size: 2.2rem; }
-  .poetry-quote-wrapper { height: 110px; padding: 0 12px; }
-  .poetry-quote { font-size: 1.05rem; padding: 0 12px; }
   .poems-grid, .stories-grid { grid-template-columns: 1fr; gap: 24px; }
   .poem-card, .story-card { padding: 24px 20px 32px; }
   .poem-title, .story-title { font-size: 1.3rem; }
@@ -1048,9 +1165,6 @@ body.dark-mode .footer {
   .poems-grid, .stories-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
-  .site-title { font-size: 1.8rem; }
-  .poetry-quote-wrapper { height: 90px; padding: 0 10px; }
-  .poetry-quote { font-size: 1rem; padding: 0 10px; }
   .poem-card, .story-card { padding: 20px 16px 28px; }
   .poem-title, .story-title { font-size: 1.15rem; }
   .poem-preview, .story-preview { font-size: 0.9rem; min-height: 54px; }
@@ -1195,7 +1309,7 @@ sayHelloModal.addEventListener('click', (e) => {
 </script>
 
 <script>
-  // Dropdown navigation functionality
+// Universal responsive dropdown navigation with smart offset detection
 document.addEventListener('DOMContentLoaded', function() {
   const navToggle = document.getElementById('navToggle');
   const navDropdown = document.getElementById('navDropdown');
@@ -1215,10 +1329,109 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Close dropdown when clicking on dropdown items
-  const dropdownItems = document.querySelectorAll('.dropdown-item');
-  dropdownItems.forEach(item => {
-    item.addEventListener('click', function() {
+  // Smart offset calculation function
+  function calculateSmartOffset() {
+    const viewportHeight = window.innerHeight;
+    const screenWidth = window.innerWidth;
+    
+    // Responsive offset based on screen size
+    let baseOffset;
+    if (screenWidth <= 480) {
+      baseOffset = Math.max(60, viewportHeight * 0.08); // 8% of viewport or 60px min
+    } else if (screenWidth <= 768) {
+      baseOffset = Math.max(70, viewportHeight * 0.09); // 9% of viewport or 70px min
+    } else if (screenWidth <= 1024) {
+      baseOffset = Math.max(80, viewportHeight * 0.10); // 10% of viewport or 80px min
+    } else {
+      baseOffset = Math.max(90, viewportHeight * 0.11); // 11% of viewport or 90px min
+    }
+    
+    // Try to detect any fixed/sticky elements at the top
+    const potentialNavbars = document.querySelectorAll('*');
+    let maxFixedHeight = 0;
+    
+    potentialNavbars.forEach(element => {
+      const style = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      
+      // Check if element is fixed/sticky and near the top
+      if ((style.position === 'fixed' || style.position === 'sticky') && 
+          rect.top >= -10 && rect.top <= 20 && 
+          rect.height > 20 && rect.height < 200) {
+        maxFixedHeight = Math.max(maxFixedHeight, rect.height);
+      }
+    });
+    
+    // Use detected height or responsive base offset
+    return Math.max(baseOffset, maxFixedHeight + 20);
+  }
+  
+  // Handle navigation links with smart responsive scrolling
+  const navLinks = document.querySelectorAll('.dropdown-item[href^="#"]');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      
+      if (targetSection) {
+        // Calculate smart offset
+        const smartOffset = calculateSmartOffset();
+        
+        // Get target position
+        const targetPosition = targetSection.offsetTop - smartOffset;
+        
+        // Smooth scroll with bounds checking
+        const finalPosition = Math.max(0, targetPosition);
+        
+        // Use different scroll methods for better compatibility
+        if ('scrollBehavior' in document.documentElement.style) {
+          window.scrollTo({
+            top: finalPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          // Fallback smooth scroll for older browsers
+          smoothScrollTo(finalPosition);
+        }
+        
+        // Close dropdown
+        navDropdown.classList.remove('show');
+        navToggle.classList.remove('active');
+      }
+    });
+  });
+  
+  // Custom smooth scroll function for older browsers
+  function smoothScrollTo(targetPosition) {
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 800; // 800ms scroll duration
+    let startTime = null;
+    
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+    
+    function easeInOutQuad(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+    
+    requestAnimationFrame(animation);
+  }
+  
+  // Handle non-link dropdown items (buttons)
+  const dropdownButtons = document.querySelectorAll('.dropdown-item:not([href])');
+  dropdownButtons.forEach(button => {
+    button.addEventListener('click', function() {
       navDropdown.classList.remove('show');
       navToggle.classList.remove('active');
     });
@@ -1232,8 +1445,46 @@ document.addEventListener('DOMContentLoaded', function() {
       navToggle.focus();
     }
   });
+  
+  // Recalculate on window resize with debouncing
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      // Offset will be recalculated on next navigation click
+      console.log('Window resized - offset will be recalculated');
+    }, 250);
+  });
+  
+  // Optional: Add scroll margin CSS programmatically
+  function addScrollMarginCSS() {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Responsive scroll margins */
+      section, [id*="section"], [id*="about"], [id*="contact"], [id*="home"], [id*="service"] {
+        scroll-margin-top: clamp(60px, 10vh, 120px);
+      }
+      
+      @media (max-width: 480px) {
+        section, [id] {
+          scroll-margin-top: clamp(50px, 8vh, 80px);
+        }
+      }
+      
+      @media (min-width: 1200px) {
+        section, [id] {
+          scroll-margin-top: clamp(80px, 12vh, 150px);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Apply CSS scroll margins as backup
+  addScrollMarginCSS();
 });
 </script>
+
 
 
   <script>
