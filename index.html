@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Serene Scribbles</title>
   <link rel="icon" href="favicon.png" type="image/png">
+
   <style>
-    :root {
+  /* Universal box-sizing for predictable sizing */
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+:root {
   /* Light mode palette */
---bg-main: rgba(245, 239, 230, 0.85); /* 85% opaque */
---bg-section: rgba(255, 255, 255, 0.9);
+  --bg-main: rgba(245, 239, 230, 0.85); /* 85% opaque */
+  --bg-section: rgba(255, 255, 255, 0.9);
   --header-bg: #ffd199;
   --footer-bg: #ffdcb2;
   --text-main: #192b2b;
@@ -30,35 +42,27 @@
   --quote-author: #494949;
 }
 
-
 body.dark-mode {
---bg-main: #181a20;
---bg-section: #31343d;
---header-bg: #23262f;
---footer-bg: #23262f;
---text-main: #e3e6ed;
---text-title: #f7c59f;
---text-accent: #f7b267;
---card-bg: #23262f;
---card-border: #353849;
---modal-bg: #23262f;
---modal-text: #e3e6ed;
---modal-header: #f7b267;
---modal-date: #b0b8c1;
---shadow: rgba(30, 41, 59, 0.22);
---shadow-hover: rgba(30, 41, 59, 0.32);
---border-focus: #f7b267;
---link: #7fd7b5;
---link-hover: #f7b267;
---quote: #b0b8c1;
---quote-author: #b0b8c1;
-}
-
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --bg-main: #181a20;
+  --bg-section: #31343d;
+  --header-bg: #23262f;
+  --footer-bg: #23262f;
+  --text-main: #e3e6ed;
+  --text-title: #f7c59f;
+  --text-accent: #f7b267;
+  --card-bg: #23262f;
+  --card-border: #353849;
+  --modal-bg: #23262f;
+  --modal-text: #e3e6ed;
+  --modal-header: #f7b267;
+  --modal-date: #b0b8c1;
+  --shadow: rgba(30, 41, 59, 0.22);
+  --shadow-hover: rgba(30, 41, 59, 0.32);
+  --border-focus: #f7b267;
+  --link: #7fd7b5;
+  --link-hover: #f7b267;
+  --quote: #b0b8c1;
+  --quote-author: #b0b8c1;
 }
 
 body {
@@ -71,12 +75,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+/* Responsive images: scale within container */
+img,
+.about-modal-photo {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .container {
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 3vw;
 }
 
 /* Top-right tabs */
@@ -152,6 +166,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -190,41 +205,41 @@ body {
   .about-modal {
     padding: 10px;
   }
-  
+
   .about-modal-content {
     padding: 20px 12px;
     border-radius: 12px;
   }
-  
+
   .about-modal-photo {
     width: 120px;
     height: 120px;
   }
-  
+
   .hello-form {
     padding: 20px 12px;
     gap: 14px;
   }
-  
+
   .hello-form label {
     font-size: 0.9rem;
   }
-  
+
   .hello-form input,
   .hello-form textarea {
     font-size: 0.9rem;
     padding: 6px 8px;
   }
-  
+
   .hello-form textarea {
     min-height: 70px;
   }
-  
+
   .hello-submit {
     font-size: 0.95rem;
     padding: 8px 0;
   }
-  
+
   .about-modal-close {
     top: 8px;
     right: 12px;
@@ -238,16 +253,16 @@ body {
     top: 20px;
     right: 20px;
   }
-  
+
   .nav-toggle {
     font-size: 0.9rem;
     padding: 6px 12px;
   }
-  
+
   .nav-dropdown-content {
     min-width: 140px;
   }
-  
+
   .dropdown-item {
     font-size: 0.9rem;
     padding: 10px 12px;
@@ -259,16 +274,16 @@ body {
     top: 16px;
     right: 16px;
   }
-  
+
   .nav-toggle {
     font-size: 0.8rem;
     padding: 5px 10px;
   }
-  
+
   .nav-dropdown-content {
     min-width: 120px;
   }
-  
+
   .dropdown-item {
     font-size: 0.8rem;
     padding: 8px 10px;
@@ -315,13 +330,13 @@ body {
   display: none;
   position: fixed;
   z-index: 1001;
-  left: 0; 
-  top: 0; 
-  right: 0; 
+  left: 0;
+  top: 0;
+  right: 0;
   bottom: 0;
-  width: 100vw; 
+  width: 100vw;
   height: 100vh;
-  background: rgba(32,32,40,0.22);
+  background: rgba(32, 32, 40, 0.22);
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -347,56 +362,59 @@ body {
   align-items: center;
   gap: 32px;
   min-height: 200px;
+  width: 100%;
+  max-width: 95vw;
+  padding: 4vw 5vw;
+  border-radius: 4vw;
 }
 
+.about-modal-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 10px var(--shadow);
+  border: 2px solid var(--card-border);
+  flex-shrink: 0;
+}
 
-        .about-modal-photo {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 2px 10px var(--shadow);
-            border: 2px solid var(--card-border);
-            flex-shrink: 0;
-        }
+.about-modal-text {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
 
-        .about-modal-text {
-            flex: 1;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-        }
+.about-modal-text p {
+  font-size: 1.1rem;
+  color: var(--text-title);
+  font-family: 'Gabriela', serif;
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
 
-        .about-modal-text p {
-            font-size: 1.1rem;
-            color: var(--text-title);
-            font-family: 'Gabriela', serif;
-            margin: 0;
-            line-height: 1.6;
-            letter-spacing: 1px;
-            word-spacing: 3px;
-        }
+.about-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.7rem;
+  background: none;
+  border: none;
+  color: var(--text-accent);
+  cursor: pointer;
+  transition: color 0.2s;
+}
 
-        .about-modal-close {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            font-size: 1.7rem;
-            background: none;
-            border: none;
-            color: var(--text-accent);
-            cursor: pointer;
-            transition: color 0.2s;
-        }
+.about-modal-close:hover {
+  color: var(--link-hover);
+}
 
-        .about-modal-close:hover {
-            color: var(--link-hover);
-        }
-
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
   .about-modal-content {
     flex-direction: column;
     text-align: center;
@@ -404,31 +422,32 @@ body {
     padding: 24px 16px;
     margin: 10px;
   }
-  
+
   .about-modal-photo {
     width: 140px;
     height: 140px;
   }
-  
+
   .about-modal-text {
     text-align: center;
   }
-  
+
   .hello-form {
     padding: 24px 16px;
   }
-  
+
   .hello-form input,
   .hello-form textarea {
     font-size: 0.95rem;
     padding: 8px 10px;
   }
-  
+
   .hello-submit {
     font-size: 1rem;
     padding: 10px 0;
   }
 }
+
 /* Blur background when modal is open */
 body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   filter: blur(6px) grayscale(0.12);
@@ -438,31 +457,40 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
 
 /* Responsive */
 @media (max-width: 600px) {
-  .top-tabs { top: 16px; right: 10px; gap: 10px; }
-  .about-modal-content { padding: 22px 8px 18px 8px; }
-  .about-modal-photo { width: 80px; height: 80px; }
-}
+  .top-tabs {
+    top: 16px;
+    right: 10px;
+    gap: 10px;
+  }
 
+  .about-modal-content {
+    padding: 22px 8px 18px 8px;
+  }
+
+  .about-modal-photo {
+    width: 80px;
+    height: 80px;
+  }
+}
 
 .header {
   text-align: center;
-  padding: 20px 0 30px; /* Increased bottom padding */
+  padding: 20px 0 30px;
   background: var(--header-bg);
-  box-shadow: inset 0 -1px 4px rgba(0,0,0,0.05);
+  box-shadow: inset 0 -1px 4px rgba(0, 0, 0, 0.05);
   user-select: none;
   margin-bottom: 20px;
   transition: background 0.3s;
   position: relative;
-  overflow: visible; /* Ensure content isn't cut off */
+  overflow: visible;
 }
-
 
 .site-title {
   font-family: 'Gabriela', serif;
   font-weight: 900;
   font-size: 4.2rem;
   color: var(--text-title);
-  padding-top: 60px; /* Reduced from 14% to fixed value */
+  padding-top: 60px;
   margin-bottom: 24px;
   letter-spacing: -0.03em;
   transition: color 0.3s;
@@ -471,9 +499,9 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
 .poetry-quote-wrapper {
   position: relative;
   max-width: 720px;
-  min-height: 140px; /* Changed from fixed height to min-height */
-  height: auto; /* Allow natural height */
-  margin: 0 auto 20px auto; /* Added bottom margin */
+  min-height: 140px;
+  height: auto;
+  margin: 0 auto 20px auto;
   overflow: hidden;
   padding: 0 20px;
   display: flex;
@@ -485,7 +513,7 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   position: absolute;
   top: 50%;
   left: 100%;
-  width: calc(100% - 40px); /* Account for padding */
+  width: calc(100% - 40px);
   opacity: 0;
   transition: all 0.8s ease-in-out;
   font-style: italic;
@@ -495,7 +523,7 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   padding: 0 20px;
   font-weight: 500;
   user-select: text;
-  transform: translateY(-50%); /* Center vertically */
+  transform: translateY(-50%);
   box-sizing: border-box;
 }
 
@@ -521,24 +549,23 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   letter-spacing: 0.03em;
 }
 
-
 @media (max-width: 1024px) {
   .header {
     padding: 15px 0 25px;
   }
-  
-  .site-title { 
+
+  .site-title {
     font-size: 3.2rem;
     padding-top: 40px;
   }
-  
-  .poetry-quote-wrapper { 
+
+  .poetry-quote-wrapper {
     min-height: 120px;
     max-width: 600px;
     padding: 0 16px;
   }
-  
-  .poetry-quote { 
+
+  .poetry-quote {
     font-size: 1.15rem;
     padding: 0 16px;
   }
@@ -548,25 +575,25 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   .header {
     padding: 12px 0 20px;
   }
-  
-  .site-title { 
+
+  .site-title {
     font-size: 2.4rem;
     padding-top: 30px;
     margin-bottom: 20px;
   }
-  
-  .poetry-quote-wrapper { 
+
+  .poetry-quote-wrapper {
     min-height: 100px;
     max-width: 500px;
     padding: 0 12px;
   }
-  
-  .poetry-quote { 
+
+  .poetry-quote {
     font-size: 1.05rem;
     padding: 0 12px;
     line-height: 1.6;
   }
-  
+
   .quote-author {
     margin-top: 15px;
     font-size: 0.95rem;
@@ -577,25 +604,25 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   .header {
     padding: 10px 0 15px;
   }
-  
-  .site-title { 
+
+  .site-title {
     font-size: 2rem;
     padding-top: 20px;
     margin-bottom: 15px;
   }
-  
-  .poetry-quote-wrapper { 
+
+  .poetry-quote-wrapper {
     min-height: 90px;
     max-width: 100%;
     padding: 0 10px;
   }
-  
-  .poetry-quote { 
+
+  .poetry-quote {
     font-size: 0.8rem;
     padding: 0 10px;
     line-height: 1.5;
   }
-  
+
   .quote-author {
     margin-top: 12px;
     font-size: 0.8rem;
@@ -606,30 +633,29 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   .header {
     padding: 8px 0 12px;
   }
-  
-  .site-title { 
+
+  .site-title {
     font-size: 1.8rem;
     padding-top: 30px;
     margin-bottom: 12px;
   }
-  
-  .poetry-quote-wrapper { 
+
+  .poetry-quote-wrapper {
     min-height: 80px;
     padding: 0 8px;
   }
-  
-  .poetry-quote { 
+
+  .poetry-quote {
     font-size: 0.6rem;
     padding: 0 8px;
     line-height: 1.4;
   }
-  
+
   .quote-author {
     margin-top: 10px;
     font-size: 0.6rem;
   }
 }
-
 
 /* Dark mode toggle button */
 .dark-mode-toggle {
@@ -652,6 +678,7 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   transition: background 0.3s, color 0.3s, border 0.3s;
   outline: none;
 }
+
 .dark-mode-toggle:focus,
 .dark-mode-toggle:hover {
   border-color: var(--border-focus);
@@ -660,9 +687,7 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
 
 /* Poems Section */
 .poems-section {
-  background-image: 
-    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
-    url('photo.png');
+  background-image: linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)), url('photo.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -697,19 +722,18 @@ body.dark-mode .poems-title {
 }
 
 .poem-card {
-background: var(--card-bg);
-border-radius: 14px;
-padding: 28px 26px 36px;
-box-shadow: 0 2px 10px var(--shadow);
-cursor: pointer;
-transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s, border 0.3s;
-border: 1px solid var(--card-border); /* <-- changed from transparent */
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-min-height: 220px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 28px 26px 36px;
+  box-shadow: 0 2px 10px var(--shadow);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s, border 0.3s;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
 }
-
 
 .poem-card:hover,
 .poem-card:focus-visible {
@@ -767,9 +791,7 @@ body.dark-mode .poem-preview {
 
 /* Short Stories Section */
 .stories-section {
-  background-image: 
-    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
-    url('photo.png');
+  background-image: linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)), url('photo.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -784,9 +806,7 @@ body.dark-mode .poem-preview {
 /* Dark mode background overrides */
 body.dark-mode .poems-section,
 body.dark-mode .stories-section {
-  background-image: 
-    linear-gradient(rgba(24, 26, 32, 0.5), rgba(24, 26, 32, 0.5)),
-    url('wallpaper-bw.png');
+  background-image: linear-gradient(rgba(24, 26, 32, 0.5), rgba(24, 26, 32, 0.5)), url('wallpaper-bw.png');
 }
 
 .stories-title {
@@ -858,9 +878,7 @@ body.dark-mode .stories-title {
 }
 
 .say-hello-section {
-  background-image: 
-    linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)),
-    url('photo.png');
+  background-image: linear-gradient(rgba(249, 246, 242, 0.7), rgba(249, 246, 242, 0.7)), url('photo.png');
   border-radius: 18px;
   box-shadow: 0 8px 24px var(--shadow);
   max-width: 70%;
@@ -869,9 +887,7 @@ body.dark-mode .stories-title {
 }
 
 body.dark-mode .say-hello-section {
-  background-image: 
-    linear-gradient(rgba(24, 26, 32, 0.3), rgba(24, 26, 32, 0.3)),
-    url('wallpaper-bw.png');
+  background-image: linear-gradient(rgba(24, 26, 32, 0.3), rgba(24, 26, 32, 0.3)), url('wallpaper-bw.png');
   border-radius: 18px;
   box-shadow: 0 8px 24px var(--shadow);
   max-width: 70%;
@@ -931,7 +947,6 @@ body.dark-mode .say-hello-section {
   width: 100%;
 }
 
-
 .hello-form label {
   font-weight: 600;
   color: var(--text-title);
@@ -951,7 +966,7 @@ body.dark-mode .say-hello-section {
   transition: border 0.2s;
   width: 100%;
   box-sizing: border-box;
-  min-width: 0; /* Prevents overflow */
+  min-width: 0;
 }
 
 .hello-form input:focus,
@@ -993,12 +1008,13 @@ body.dark-mode .say-hello-section {
     flex-direction: column;
     gap: 32px;
   }
-  .hello-title, .hello-form {
+
+  .hello-title,
+  .hello-form {
     max-width: 100%;
     padding-right: 0;
   }
 }
-
 
 body.dark-mode .story-preview {
   color: #b0b8c1;
@@ -1026,7 +1042,8 @@ body.dark-mode .story-preview {
 .modal {
   display: none;
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(185, 185, 185, 0.95);
@@ -1061,6 +1078,10 @@ body.dark-mode .modal {
   box-shadow: 0 12px 40px var(--shadow);
   position: relative;
   transition: background 0.3s, color 0.3s;
+  width: 100%;
+  max-width: 95vw;
+  padding: 4vw 5vw;
+  border-radius: 4vw;
 }
 
 .modal-header {
@@ -1092,7 +1113,8 @@ body.dark-mode .modal-header {
   transition: color 0.3s;
 }
 
-.modal-poem, .modal-story {
+.modal-poem,
+.modal-story {
   font-size: 1.15rem;
   line-height: 1.85;
   white-space: pre-line;
@@ -1141,38 +1163,151 @@ body.dark-mode .footer {
   border-top: 1px solid #353a40;
 }
 
-/* Responsive styles (unchanged) */
+/* Responsive styles */
 @media (max-width: 1024px) {
-  .site-title { font-size: 2.8rem; }
-  .poetry-quote-wrapper { height: 120px; padding: 0 16px; }
-  .poetry-quote { font-size: 1.15rem; padding: 0 16px; }
-  .modal-content { padding: 32px 32px 48px; }
-  .modal-title { font-size: 1.75rem; }
-  .modal-poem, .modal-story { font-size: 1.05rem; }
+  .site-title {
+    font-size: 2.8rem;
+  }
+
+  .poetry-quote-wrapper {
+    height: 120px;
+    padding: 0 16px;
+  }
+
+  .poetry-quote {
+    font-size: 1.15rem;
+    padding: 0 16px;
+  }
+
+  .modal-content {
+    padding: 32px 32px 48px;
+  }
+
+  .modal-title {
+    font-size: 1.75rem;
+  }
+
+  .modal-poem,
+  .modal-story {
+    font-size: 1.05rem;
+  }
 }
+
 @media (max-width: 768px) {
-  .poems-grid, .stories-grid { grid-template-columns: 1fr; gap: 24px; }
-  .poem-card, .story-card { padding: 24px 20px 32px; }
-  .poem-title, .story-title { font-size: 1.3rem; }
-  .poem-preview, .story-preview { font-size: 0.95rem; min-height: 60px; }
-  .modal-content { width: 95%; padding: 28px 24px 36px; border-radius: 16px; }
-  .modal-title { font-size: 1.5rem; }
-  .modal-poem, .modal-story { font-size: 1rem; }
-  .footer { font-size: 0.9rem; padding: 36px 16px; }
-  .dark-mode-toggle { top: 16px; left: 16px; width: 40px; height: 40px; font-size: 1.2rem; }
+  .poems-grid,
+  .stories-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .poem-card,
+  .story-card {
+    padding: 24px 20px 32px;
+  }
+
+  .poem-title,
+  .story-title {
+    font-size: 1.3rem;
+  }
+
+  .poem-preview,
+  .story-preview {
+    font-size: 0.95rem;
+    min-height: 60px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 28px 24px 36px;
+    border-radius: 16px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-poem,
+  .modal-story {
+    font-size: 1rem;
+  }
+
+  .footer {
+    font-size: 0.9rem;
+    padding: 36px 16px;
+  }
+
+  .dark-mode-toggle {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
 }
+
 @media (max-width: 600px) {
-  .poems-grid, .stories-grid { grid-template-columns: 1fr; }
+  .poems-grid,
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 @media (max-width: 480px) {
-  .poem-card, .story-card { padding: 20px 16px 28px; }
-  .poem-title, .story-title { font-size: 1.15rem; }
-  .poem-preview, .story-preview { font-size: 0.9rem; min-height: 54px; }
-  .modal-content { padding: 24px 20px 28px; }
-  .modal-title { font-size: 1.3rem; }
-  .modal-poem, .modal-story { font-size: 0.9rem; }
+  .poem-card,
+  .story-card {
+    padding: 20px 16px 28px;
+  }
+
+  .poem-title,
+  .story-title {
+    font-size: 1.15rem;
+  }
+
+  .poem-preview,
+  .story-preview {
+    font-size: 0.9rem;
+    min-height: 54px;
+  }
+
+  .modal-content {
+    padding: 24px 20px 28px;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .modal-poem,
+  .modal-story {
+    font-size: 0.9rem;
+  }
 }
-  </style>
+
+/* For sub-400px widths, scale card padding and font properly */
+@media (max-width: 400px) {
+  .poem-card,
+  .story-card {
+    padding: 10px 4vw 18px;
+  }
+
+  .poem-title,
+  .story-title {
+    font-size: 0.95rem;
+  }
+
+  .poem-preview,
+  .story-preview {
+    font-size: 0.75rem;
+    min-height: 34px;
+  }
+
+  .modal-content {
+    font-size: 0.8rem;
+    padding: 12px 8px 12px;
+  }
+}
+
+    </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Calligraffitti&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Darker+Grotesque:wght@300..900&family=Gabriela&family=Iceland&family=Jockey+One&family=Knewave&family=Libertinus+Mono&family=Mogra&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Sriracha&family=Tektur:wght@400..900&family=Wallpoet&family=Zen+Dots&display=swap" rel="stylesheet">
@@ -1286,285 +1421,291 @@ body.dark-mode .footer {
 </div>
 
 <script>
+  // Save the last focused button before opening modal
+  let lastFocusedBtn;
   const sayHelloTab = document.getElementById('sayHelloTab');
   const sayHelloModal = document.getElementById('sayHelloModal');
   const closeSayHello = document.getElementById('closeSayHello');
 
+  // Trap focus on modal open
+  function trapFocus(modal) {
+    let focusableEls = modal.querySelectorAll('button, [href], input, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusableEls.length === 0) return;
+    let firstEl = focusableEls[0];
+    let lastEl = focusableEls[focusableEls.length - 1];
+    modal.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) { // backward
+          if (document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else { // forward
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      }
+    });
+    setTimeout(() => firstEl.focus(), 20);
+  }
+
   sayHelloTab.addEventListener('click', () => {
-  sayHelloModal.classList.add('open');
-  document.body.classList.add('modal-open');
-});
+    lastFocusedBtn = document.activeElement;
+    sayHelloModal.classList.add('open');
+    document.body.classList.add('modal-open');
+    trapFocus(sayHelloModal);
+  });
 
-closeSayHello.addEventListener('click', () => {
-  sayHelloModal.classList.remove('open');
-  document.body.classList.remove('modal-open');
-});
-
-sayHelloModal.addEventListener('click', (e) => {
-  if (e.target === sayHelloModal) {
+  closeSayHello.addEventListener('click', () => {
     sayHelloModal.classList.remove('open');
     document.body.classList.remove('modal-open');
-  }
-});
+    if (lastFocusedBtn) lastFocusedBtn.focus();
+  });
+
+  sayHelloModal.addEventListener('click', (e) => {
+    if (e.target === sayHelloModal) {
+      sayHelloModal.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      if (lastFocusedBtn) lastFocusedBtn.focus();
+    }
+  });
 </script>
 
 <script>
-// Universal responsive dropdown navigation with smart offset detection
-document.addEventListener('DOMContentLoaded', function() {
-  const navToggle = document.getElementById('navToggle');
-  const navDropdown = document.getElementById('navDropdown');
-  
-  // Toggle dropdown
-  navToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    navDropdown.classList.toggle('show');
-    navToggle.classList.toggle('active');
-  });
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!navToggle.contains(e.target) && !navDropdown.contains(e.target)) {
-      navDropdown.classList.remove('show');
-      navToggle.classList.remove('active');
-    }
-  });
-  
-  // Smart offset calculation function
-  function calculateSmartOffset() {
-    const viewportHeight = window.innerHeight;
-    const screenWidth = window.innerWidth;
-    
-    // Responsive offset based on screen size
-    let baseOffset;
-    if (screenWidth <= 480) {
-      baseOffset = Math.max(60, viewportHeight * 0.08); // 8% of viewport or 60px min
-    } else if (screenWidth <= 768) {
-      baseOffset = Math.max(70, viewportHeight * 0.09); // 9% of viewport or 70px min
-    } else if (screenWidth <= 1024) {
-      baseOffset = Math.max(80, viewportHeight * 0.10); // 10% of viewport or 80px min
-    } else {
-      baseOffset = Math.max(90, viewportHeight * 0.11); // 11% of viewport or 90px min
-    }
-    
-    // Try to detect any fixed/sticky elements at the top
-    const potentialNavbars = document.querySelectorAll('*');
-    let maxFixedHeight = 0;
-    
-    potentialNavbars.forEach(element => {
-      const style = window.getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      
-      // Check if element is fixed/sticky and near the top
-      if ((style.position === 'fixed' || style.position === 'sticky') && 
-          rect.top >= -10 && rect.top <= 20 && 
-          rect.height > 20 && rect.height < 200) {
-        maxFixedHeight = Math.max(maxFixedHeight, rect.height);
-      }
+  // Universal responsive dropdown navigation with smart offset detection
+  document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.getElementById('navToggle');
+    const navDropdown = document.getElementById('navDropdown');
+
+    // Toggle dropdown
+    navToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isExpanded = navDropdown.classList.toggle('show');
+      navToggle.classList.toggle('active', isExpanded);
+      navToggle.setAttribute('aria-expanded', isExpanded.toString());
     });
-    
-    // Use detected height or responsive base offset
-    return Math.max(baseOffset, maxFixedHeight + 20);
-  }
-  
-  // Handle navigation links with smart responsive scrolling
-  const navLinks = document.querySelectorAll('.dropdown-item[href^="#"]');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      const targetId = this.getAttribute('href');
-      const targetSection = document.querySelector(targetId);
-      
-      if (targetSection) {
-        // Calculate smart offset
-        const smartOffset = calculateSmartOffset();
-        
-        // Get target position
-        const targetPosition = targetSection.offsetTop - smartOffset;
-        
-        // Smooth scroll with bounds checking
-        const finalPosition = Math.max(0, targetPosition);
-        
-        // Use different scroll methods for better compatibility
-        if ('scrollBehavior' in document.documentElement.style) {
-          window.scrollTo({
-            top: finalPosition,
-            behavior: 'smooth'
-          });
-        } else {
-          // Fallback smooth scroll for older browsers
-          smoothScrollTo(finalPosition);
-        }
-        
-        // Close dropdown
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!navToggle.contains(e.target) && !navDropdown.contains(e.target)) {
         navDropdown.classList.remove('show');
         navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       }
     });
-  });
-  
-  // Custom smooth scroll function for older browsers
-  function smoothScrollTo(targetPosition) {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 800; // 800ms scroll duration
-    let startTime = null;
-    
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
+
+    // Smart offset calculation function
+    function calculateSmartOffset() {
+      const viewportHeight = window.innerHeight;
+      const screenWidth = window.innerWidth;
+
+      let baseOffset;
+      if (screenWidth <= 480) {
+        baseOffset = Math.max(60, viewportHeight * 0.08);
+      } else if (screenWidth <= 768) {
+        baseOffset = Math.max(70, viewportHeight * 0.09);
+      } else if (screenWidth <= 1024) {
+        baseOffset = Math.max(80, viewportHeight * 0.10);
+      } else {
+        baseOffset = Math.max(90, viewportHeight * 0.11);
+      }
+
+      const potentialNavbars = document.querySelectorAll('*');
+      let maxFixedHeight = 0;
+      potentialNavbars.forEach(element => {
+        const style = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        if ((style.position === 'fixed' || style.position === 'sticky') &&
+          rect.top >= -10 && rect.top <= 20 &&
+          rect.height > 20 && rect.height < 200) {
+          maxFixedHeight = Math.max(maxFixedHeight, rect.height);
+        }
+      });
+
+      return Math.max(baseOffset, maxFixedHeight + 20);
     }
-    
-    function easeInOutQuad(t, b, c, d) {
-      t /= d / 2;
-      if (t < 1) return c / 2 * t * t + b;
-      t--;
-      return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-    
-    requestAnimationFrame(animation);
-  }
-  
-  // Handle non-link dropdown items (buttons)
-  const dropdownButtons = document.querySelectorAll('.dropdown-item:not([href])');
-  dropdownButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      navDropdown.classList.remove('show');
-      navToggle.classList.remove('active');
+
+    // Handle navigation links with smart responsive scrolling
+    const navLinks = document.querySelectorAll('.dropdown-item[href^="#"]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+          const smartOffset = calculateSmartOffset();
+          const targetPosition = targetSection.offsetTop - smartOffset;
+          const finalPosition = Math.max(0, targetPosition);
+
+          if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({
+              top: finalPosition,
+              behavior: 'smooth'
+            });
+          } else {
+            smoothScrollTo(finalPosition);
+          }
+
+          navDropdown.classList.remove('show');
+          navToggle.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
-  });
-  
-  // Handle escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && navDropdown.classList.contains('show')) {
-      navDropdown.classList.remove('show');
-      navToggle.classList.remove('active');
-      navToggle.focus();
+
+    // Custom smooth scroll function for older browsers
+    function smoothScrollTo(targetPosition) {
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      const duration = 800;
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+
+      function easeInOutQuad(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      }
+
+      requestAnimationFrame(animation);
     }
-  });
-  
-  // Recalculate on window resize with debouncing
-  let resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      // Offset will be recalculated on next navigation click
-      console.log('Window resized - offset will be recalculated');
-    }, 250);
-  });
-  
-  // Optional: Add scroll margin CSS programmatically
-  function addScrollMarginCSS() {
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Responsive scroll margins */
-      section, [id*="section"], [id*="about"], [id*="contact"], [id*="home"], [id*="service"] {
-        scroll-margin-top: clamp(60px, 10vh, 120px);
+
+    // Handle non-link dropdown items (buttons)
+    const dropdownButtons = document.querySelectorAll('.dropdown-item:not([href])');
+    dropdownButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        navDropdown.classList.remove('show');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && navDropdown.classList.contains('show')) {
+        navDropdown.classList.remove('show');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
       }
-      
-      @media (max-width: 480px) {
-        section, [id] {
-          scroll-margin-top: clamp(50px, 8vh, 80px);
+    });
+
+    // Recalculate on window resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        console.log('Window resized - offset will be recalculated');
+      }, 250);
+    });
+
+    // Optional: Add scroll margin CSS programmatically
+    function addScrollMarginCSS() {
+      const style = document.createElement('style');
+      style.textContent = `
+        section, [id*="section"], [id*="about"], [id*="contact"], [id*="home"], [id*="service"] {
+          scroll-margin-top: clamp(60px, 10vh, 120px);
         }
-      }
-      
-      @media (min-width: 1200px) {
-        section, [id] {
-          scroll-margin-top: clamp(80px, 12vh, 150px);
+        
+        @media (max-width: 480px) {
+          section, [id] {
+            scroll-margin-top: clamp(50px, 8vh, 80px);
+          }
         }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
-  // Apply CSS scroll margins as backup
-  addScrollMarginCSS();
-});
+        
+        @media (min-width: 1200px) {
+          section, [id] {
+            scroll-margin-top: clamp(80px, 12vh, 150px);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    addScrollMarginCSS();
+  });
 </script>
 
+<script>
+  // Dark mode toggle logic
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const darkModeIcon = document.getElementById('darkModeIcon');
 
-
-  <script>
-    // Dark mode toggle logic
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const darkModeIcon = document.getElementById('darkModeIcon');
-
-    // Save preference in localStorage
-    function setDarkMode(isDark) {
-      if (isDark) {
-        document.body.classList.add('dark-mode');
-        darkModeIcon.textContent = '☀️';
-        localStorage.setItem('darkMode', 'true');
-      } else {
-        document.body.classList.remove('dark-mode');
-        darkModeIcon.textContent = '🌙';
-        localStorage.setItem('darkMode', 'false');
-      }
+  function setDarkMode(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      darkModeIcon.textContent = '☀️';
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeIcon.textContent = '🌙';
+      localStorage.setItem('darkMode', 'false');
     }
+  }
 
-    // Toggle on click
-    darkModeToggle.addEventListener('click', () => {
-      setDarkMode(!document.body.classList.contains('dark-mode'));
-    });
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!document.body.classList.contains('dark-mode'));
+  });
 
-    // On load, set mode from localStorage
-    (function() {
-      const darkPref = localStorage.getItem('darkMode');
-      if (darkPref === 'true') setDarkMode(true);
-      else setDarkMode(false);
-    })();
-    // Poems data
-    const poems = [
-      {
-        title: "Because Orpheus Turned",
-        preview: "When someone asks me how do I believe in this idea of love...",
-        content: `When someone asks me
+  (function() {
+    const darkPref = localStorage.getItem('darkMode');
+    if (darkPref === 'true') setDarkMode(true);
+    else setDarkMode(false);
+  })();
+
+  const poems = [
+    {
+      title: "Because Orpheus Turned",
+      preview: "When someone asks me how do I believe in this idea of love...",
+      content: `When someone asks me
 how do I believe in this
 idea of love —
 that it stays,
 it waits,
 it razes down buildings,
 it turns around fate?
-
 The idea of love
 that is so big
 it consumes —
 and yet so small
 that it fits in the
 hands of your lover?
-
 So bright it blinds you —
 and yet so warm,
 that it is the sun
 on your neck,
 leaving trails on your back?
-
 The idea of love —
 that is poetic enough
 for you to use it to sleep,
 and gut-wrenching enough
 to feel your mouth going dry?
-
 The idea of love —
 that it is the stars and the moon
 when stars are dying balls of gases,
 and moon —
 it's just moon.
-
 You look at me,
 expecting an answer,
 an explanation for this madness.
 But I can't.
-
 I don't believe in love
 because it is this air that sweeps
 me off my feet,
 or knocks me down,
 or makes me brave.
-
 I believe in love because
 Orpheus turned.
 And because
@@ -1572,14 +1713,12 @@ Achilles fought.
 But I also believe
 because Edifice followed,
 and Patroclus knew.
-
 And I know these are stories —
 myths,
-fantasies
+fantaseis
 that rope you in to sell you
 the idea of love —
 in which souls are on fire.
-
 But —
 I believe in love because
 Virginia Woolf was wrong all along.
@@ -1589,86 +1728,74 @@ when the iron in our blood
 was forged in their center,
 and you were flowing through me
 before we even met?`,
-      },
-      {
-        title: "People Who Feel Like Galaxies",
-        preview: "There are people whose touch leave galaxies...",
-        content: `There are people
+    },
+    {
+      title: "People Who Feel Like Galaxies",
+      preview: "There are people whose touch leave galaxies...",
+      content: `There are people
 whose touch leaves galaxies
 on your skin —
 so deep,
 you start believing
 you were born with the light of stars.
-
 Who know you haven’t slept in days,
 so they spin lullabies
 of moons dimming themselves
 and cozying up next to you.
-
 There are people
 who talk about hope
 like an old acquaintance —
 someone they will find
 just around the corner
 in the right parts of town.
-
 These people make the perfect coffee,
 and have the perfect stories
 to go with them.
-
 There are people
 who make you laugh so hard
 the sun is seen
 shining from your hair.
 They hold you tight
 when tears are your only language.
-
 People like comic strips
 in newspapers —
 tiny moments of joy
 amidst a plethora of destruction and wretchedness.
-
 People who trace shapes on your palms
 so you never forget to feel —
 if your eyes are tired
 of seeing too much.
-
 They curate playlists
 to cure your heartbreaks
 and also for the next love
 that knocks your door.
-
 People with whom
 conversations feel like handwritten letters,
 who look at you
 like you're the address
 of their long-lost postcards.
-
 People with the right mix
 of belief and magic —
 to make you think
 your Hogwarts letter
 is somewhere in your piles of books.
-
 There are people
 with faith higher than mountains
 and love deeper than fears.
-
 People who stay
 with so much force,
 you start believing
 they found their roots next to you.
-
 There are people
 who will turn around galaxies for you —
 and such people
 are the cosmos
 in themselves.`,
-      },
-      {
-        title: "Aur Bhi Dukh Hai?",
-        preview: "Faiz I have been wondering, a lot about love....",
-        content: `Faiz,
+    },
+    {
+      title: "Aur Bhi Dukh Hai?",
+      preview: "Faiz I have been wondering, a lot about love....",
+      content: `Faiz,
 I have been wondering —
 a lot about love.
 Reading poets and romantics,
@@ -1676,15 +1803,12 @@ churn their souls
 and bleed ink on papers
 to paint something
 that looks somewhat like love.
-
 And I have questions.
 I have so many questions.
-
 So Faiz, when you said:
 "Aur bhi dukh hai zamane mein
 mohabbat ke siwa"
 Did you have a heartbreak?
-
 Were you lying somewhere
 in the house
 which did not smell of home anymore?
@@ -1692,7 +1816,6 @@ Did you feel your heart
 beating in your throat,
 scarring all your insides
 with its broken pieces?
-
 And did you swallow it all in —
 with elixirs on the rocks
 and magic potions?
@@ -1701,14 +1824,12 @@ only to restore them a little later,
 because the gallery looked empty
 without their faces
 peeking from the corners?
-
 Because if you did, Faiz —
 you would not believe
 there could exist a pain
 deeper than yours
 in the whole world put together,
 no matter how selfish the thought was.
-
 So Faiz, please tell me —
 when you said:
 "Raahtein aur bhi hai
@@ -1716,55 +1837,46 @@ vasl ki raahat ke siwa"
 Had you hugged your lover
 and felt your body forget
 it is supposed to have bones?
-
 Did you lie down on their bed
 believing home could be
 this little bubble
 you both lived in?
-
 Did you meet someone
 with whom it felt a little less scary —
 even if it was for a second
 in a day,
 and that second felt enough
 for a lifetime?
-
 Were you able to feel so whole
 in yourself
 that you could look at someone
 and imagine how they
 just made it better?
-
 Did they remind you
 of the lines in your favourite poem —
 the ones you read twice?
 Or your favourite childhood memory?
 Or the laughter
 on the decks of all your future beach houses?
-
 Did you find someone, Faiz —
 who kept the front gate open
 because you might be a little late
 to get home?
-
 Because if you did, Faiz —
 you would know
 that time stopping still
 and the world coming to a halt
 doesn’t exist only in books.
-
 You would know, Faiz,
 about people
 who are peace in human form
 because they were lying
 right next to you.
-
 So Faiz —
 did you feel the love
 the romantics have been whispering about?
 Did you feel the heartbreaks
 this generation has pinned on its sleeves?
-
 Because if you didn’t —
 I am terribly sorry.
 I am so sorry
@@ -1772,23 +1884,21 @@ you had to take the fall
 for all of us broken hearts
 and wounded souls
 who turn to poetry.
-
 But if you did —
 at least I know:
 "Aur bhi dukh hai zamane mei
 Mohabbat k siwa
 Raahtein aur bhi hai
 Vasl k raahat k siwa."`,
-      },
-      {
-        title: "The Poet and the Question",
-        preview: "When I see the brown of your eye and instantly...",
-        content: `When I see the brown of your eye —
+    },
+    {
+      title: "The Poet and the Question",
+      preview: "When I see the brown of your eye and instantly...",
+      content: `When I see the brown of your eye —
 and instantly, honey comes to my mind —
 and before I can shush the poet in me,
 I start writing about
 sunsets and oranges,
-
 The lips you’ve eaten
 ever so slightly,
 like the blood was misplaced
@@ -1796,7 +1906,6 @@ inside the skin,
 and had to come out
 in flashes of red —
 to colour an otherwise beige face,
-
 Like the walls of the room
 you’ve slept in
 since you were a child —
@@ -1806,10 +1915,8 @@ losing the childhood
 like baby teeth —
 making place
 for your permanent adulthood.
-
 And you ask me,
 what am I thinking about?
-
 But I can’t tell you
 that I’m thankful to
 the atoms
@@ -1817,13 +1924,11 @@ that first made the universe —
 to gravity for being
 the precise amount,
 stopping life from collapsing into itself.
-
 Like how poetries about your hair
 dissolve in my lungs
 and speak from my eyes
 when you ask me —
 what am I thinking about?
-
 Before the poet in me
 goes to sleep,
 it writes you 20 poems
@@ -1831,18 +1936,15 @@ religiously,
 like a mother
 creating lullabies
 for its naughty child.
-
 It knows it doesn’t have to —
 but it knows how a thing of beauty
 must have compelled Keats,
 because how can the mole on your hand
 encapsulate the entire earth?
-
 The poet wants to
 tell you about how you enunciate
 between two full stops —
 and this is how sagas are written.
-
 When you ask me
 what are you thinking about?
 The poet wants to say:
@@ -1854,39 +1956,33 @@ must be about
 the galaxies in your laugh,
 or the stars in my hand
 holding yours.
-
 But instead,
 it says:
 "बे-ख़ुदी बे-सबब नहीं 'ग़ालिब'
 कुछ तो है जिस की पर्दा-दारी है"`,
-      },
-      {
-        title: "Scars, Wars, and Other Love Stories",
-        preview: "Would you take this person to the war with you?...",
-        content: `Would you take this person
+    },
+    {
+      title: "Scars, Wars, and Other Love Stories",
+      preview: "Would you take this person to the war with you?...",
+      content: `Would you take this person
 to the war with you?
-
 I would take this person
 to my childhood hauntings—
 for him to trace my scars
 and the walls of my wounds.
-
 I would take him to
 the coffee shop
 that serves the tea
 closest to Maa.
-
 I would take him to the hospital room
 I lost my grandfather in—
 to show him why
 the smell of bleach makes me puke
 and miss someone
 at the same time.
-
 I would take him under the cherry blossoms
 and tell him stories of each one
 falling to the ground.
-
 I would take him to
 the roads that feel like home,
 to the homes razed to the ground,
@@ -1895,92 +1991,78 @@ to the libraries,
 to the mountains,
 to the highs,
 to the lows.
-
 I would take this person
 to the ruins of my being
 and ask him—
 Will you make it hurt less
 for five minutes?
-
 I would take him to
 the mornings I sing and dance,
 and to the evenings
 I make good coffee.
-
 I would take this person
 where lovers meet,
 according to Rumi.
-
 So I will take him to wars,
 and battle,
 and destruction—
 because Patroclus died knowing
 he was worth fighting for.`,
-      },
-      {
-        title: "For the Moon in Me, For the Lake in You",
-        preview: "It must be hard for the lake to stay still...",
-        content: `It must be hard
+    },
+    {
+      title: "For the Moon in Me, For the Lake in You",
+      preview: "It must be hard for the lake to stay still...",
+      content: `It must be hard
 for the lake to stay still
 when the moon looks at it
 with so much love
 that you can see the moon
 in the waters—
-
 simmering, still, calm—
 a part of the lake,
 even though they are far apart.
-
 A part of the waters,
 even though it will never be.
-
 I know this
 because
 you look at me
 the same way.`,
-      },
-      {
-        title: "Love, Ripe and Warm",
-        preview: "I would peel an orange for you...",
-        content: `I would peel an orange for you.
+    },
+    {
+      title: "Love, Ripe and Warm",
+      preview: "I would peel an orange for you...",
+      content: `I would peel an orange for you.
 I would peel the corners of the sky
 and make it night
 if you want to sleep before the sun is up.
-
 I would peel the layers of green
 and make it snow,
 if that would mean you laugh and play
 with snow angels.
-
 I know you can peel an orange yourself—
 but I would peel one for you,
 and keep it in my fingernails,
 in case you get hungry
 and I forgot to peel one for you.
-
 In my fingernails, I would keep
 the skins you leave behind,
 if you ever want to go back
 to the traces of who you were.
-
 I know someone once wrote
 how they would invent God
 if it made her happy.
 I read about a doctor
 who invented gloves
 for his nurse wife.
-
 My grandfather invents a new name for himself
 every day,
 because my grandmother
 forgets every day.
-
 I know how people invent—
 and destroy—in love.
 How kings raze down cities
 for their queens,
 how scientists invent medicines.
-
 And I can’t say which is greater,
 but all I know is:
 I would peel my heart for you,
@@ -1988,15 +2070,14 @@ ripe and warm,
 and place it in your palms,
 and say:
 Enjoy.`,
-      },
-      {
-        title: "Oh, To Be Loved by an Artist",
-        preview: "Oh, to be loved by an artist— to be...",
-        content: `Oh, to be loved by an artist—
+    },
+    {
+      title: "Oh, To Be Loved by an Artist",
+      preview: "Oh, to be loved by an artist— to be...",
+      content: `Oh, to be loved by an artist—
 to be the blue
 in their Starry Night,
 to be written ballads about.
-
 To be loved by an artist
 is knowing the mark on your back
 will be written as a treasure map,
@@ -2004,67 +2085,56 @@ is knowing your veins and the red
 are not just blood—
 but red threads
 keeping detectives sane.
-
 To be loved by an artist
 is knowing the back of your hand
 is the canvas for their paintings,
 is knowing there are sagas
 written about the pillow talks.
-
 To be loved by an artist
 is to have poems written
 on the nape of your neck—
 and then have poems written
 about the nape of your neck.
-
 To be the muse of poems,
 to be described as goddess,
 to be remembered as lines,
 as poetry,
 as paintings,
 as colours.
-
 To be the yellow
 that Van Gogh drank,
 to be written
 as nature,
 as chaos,
 as thunderstorms.
-
 To be the apple
 that rediscovered science.
-
 Oh, to be loved by an artist
 is realising—
 you are the art itself.`,
-      },
-      {
-        title: "Between Farsi Flowers and Sylvia Plath",
-        preview: "My English professor went crazy screaming...",
-        content: `My English professor
+    },
+    {
+      title: "Between Farsi Flowers and Sylvia Plath",
+      preview: "My English professor went crazy screaming...",
+      content: `My English professor
 went crazy screaming:
 “Love is like a lighthouse.”
-
 I scribbled it
 on the edge of my torn-down
 illustration of that day’s newspaper—
 like I would ever forget that line.
-
 Love is like a lighthouse.
 He was one dramatic man.
 He would make gestures,
 stretch his arms
 wide enough to fit the universe.
-
 And strangely, every time
 his hands moved,
 it felt like he was sculpting you.
-
 He had this crazy-scientist look,
 with the objectivity of a baby,
 and recited poetry
 like it was his mother tongue.
-
 More often than not,
 we found him outside
 looking at a flower,
@@ -2072,19 +2142,16 @@ reciting its name in Farsi,
 and moving on
 like he was teaching a child
 how to learn the alphabet.
-
 You should have seen
 how he taught Plath.
 He said he felt bad for her soul,
 as this generation remembers her
 like a deceased relative—
 only when times are hard.
-
 But he felt even worse
 for the oven,
 because now people
 look at it differently.
-
 He would hum:
 "Hum tere pyaar mei saara aalam
 kho baithe hai, kho baithe hai..."
@@ -2093,7 +2160,6 @@ for his idiosyncrasies,
 like a justification
 for his madness,
 like the reason for his being.
-
 And today,
 as I’m packing the last boxes
 of your belongings,
@@ -2101,214 +2167,183 @@ and the radio is playing:
 “Aur tum kehte ho
 aise pyaar ko
 bhool jaao, bhool jaao...”
-
 I remember stories
 about sailors going crazy,
 searching for lighthouses.
-
 And I realise why
 my crazy English professor said:
 Love is like a lighthouse.`,
-      }
-    ];
+    }
+  ];
 
-    // Short stories data
-    const stories = [
-      {
-        title: "Love is a Ghazal We Don’t Finish",
-        preview: "What do you do when love keeps knocking on your door—just not with flowers, but with heartbreak in hand?",
-        content: `“वो मेरे घर नहीं आता, मैं उसके घर नहीं जाता —
+  const stories = [{
+    title: "Love is a Ghazal We Don’t Finish",
+    preview: "What do you do when love keeps knocking on your door—just not with flowers, but with heartbreak in hand?",
+    content: `“वो मेरे घर नहीं आता, मैं उसके घर नहीं जाता —
 मगर इन एहतियातों से ताल्लुक़ मर नहीं जाता।”
-
 “What does that mean?”
 “What?”
 “Eti-something?”
 “एहतियातों. It means to be cautious of something. Precautionary.”
-
 “I have no clue how you remember these words and their meanings and these ghazals. I find it difficult to learn the directions to this café that we’ve been coming to for the last 9 months.”
-
 “First of all, you don’t have to learn. Ye shayari aapko feel hoti hai.
 And secondly, if you were good at remembering things, you wouldn’t have had to cheat on every paper since 3rd Standard.”
-
 “Which basically means we wouldn’t have been here today, and I would not have been paying for your chai for the last 45,000 years.”
-
 And the bickering continues as you pay for the tea with the wallet holding her photo, and the hand carrying my rubber band.
-
 I won’t tell you how I haven’t visited this place in 9 months.
 Not since the grey, cloudy morning we decided to not meet again—because she doesn’t like it.
-
 I don’t think the morning was actually grey. But anything and everything beyond the vapours of your coffee curling to create that sad smile on your face looked grey and bleak—like it was the coldest winter day Delhi has experienced in the last 23 years.
-
 And not the pleasant, crisp summer breeze the rest of the people seem to be enjoying.
-
 “You know I can never choose between you both.”
 “But you are.”
-
 “What’s that line by Fariz that you like a lot?”
 You slur on the call, mentioning one of the greatest poets ever lived like he’s your neighbour you awkwardly greet in the hallway to avoid sharing an elevator.
-
 It was 2:33 at night.
 You asked if you woke me up.
 I said yes, but it’s not a problem.
-
 You didn’t wake me up. I was up.
 Like I am every night.
 I know it was 2:33 because I was staring at the clock when it was 1:46... and 12:14... and 11:03.
-
 “It’s Faraz. And the lines are:
-
 रंजिश ही सही, दिल ही दुखाने के लिए आ,
 आ फिर से मुझे छोड़ के जाने के लिए आ।
 किस-किस को बताएँगे जुदाई का सबब हम,
 तू मुझ से ख़फ़ा है तो ज़माने के लिए आ।”
-
 “What does that mean?”
 “You need to sleep.”
-
 You are too drunk to understand these lines.
 Too coward to feel the words in your alcohol-soaked veins.
 Too small to understand the pain Faraz must’ve felt when he wrote:
-
-अब तक दिल-ए-ख़ुश-फ़हम को तुझ से हैं उम्मीदें,
+अब तक दिल-ए-ख़ुश-फहम को तुझ से हैं उम्मीदें,
 ये आख़िरी शम'एँ भी बुझाने के लिए आ।
-
 How someone crosses the line between desperation and hope when they are waiting for their lover to come back.
 Waiting for their lover to leave completely.
 Waiting for their lover to either shut the iron grills behind them or knock on the door for the last time.
-
 “What are you doing here?”
-
 You are at my door, with wine in one hand and heartbreak in another.
-
 They say people smell of what they are going through.
 Is it wrong of me to feel a little sadistic pleasure seeing you go through heartbreak—
 Smelling like me for a change, and not her.
-
 Smelling like blood and sadness,
 with your heart bleeding out on my carpet,
 as you cry for her
 and I hold your hand.
-
 "खुले थे शहर में सौ दर मगर इक हद के अंदर ही,
 कहाँ जाता अगर मैं लौट के फिर घर नहीं जाता।”
-
 “Wow. Looks like fighting with her turned you into a shayar after all.”
-
 You know I would open the door.
 Let you come in and make room for you in the mess I’ve been struggling to breathe in.
-
 You know I will give you my oxygen tank.
 And I know you will not pull me up to the surface.
-
 I know you thought of her
 when your hands started exploring me,
 almost on autopilot—
 but suddenly jerking away
 when you realised this route isn’t what your brain has learnt.
-
 It is trying to recreate the same strategies
 on a different battleground.
-
 “You should go. It’s getting late.”
 “How does this end?”
-
 As you knock on my door for the last time,
 and I shut the iron grills behind you, I say:
-
 “'वसीम' उस से कहो, दुनिया बहुत महदूद है मेरी—
 किसी दर का जो हो जाए, वो फिर दर दर नहीं जाता।”`
-      }
-    ];
+  }];
 
-    // Create poem cards dynamically
-    function createPoemCards() {
-      const grid = document.getElementById('poemsGrid');
-      grid.innerHTML = '';
-      poems.forEach((poem, index) => {
-        const card = document.createElement('div');
-        card.className = 'poem-card';
-        card.tabIndex = 0;
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-pressed', 'false');
-        card.setAttribute('aria-label', `Open full poem titled ${poem.title}`);
-        card.onclick = () => openModal('poem', index);
-        card.onkeypress = (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal('poem', index);
-          }
-        };
-        card.innerHTML = `
+  // Create poem cards dynamically
+  function createPoemCards() {
+    const grid = document.getElementById('poemsGrid');
+    grid.innerHTML = '';
+    poems.forEach((poem, index) => {
+      const card = document.createElement('div');
+      card.className = 'poem-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-label', `Open full poem titled ${poem.title}`);
+      card.onclick = () => openModal('poem', index);
+      card.onkeypress = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal('poem', index);
+        }
+      };
+      card.innerHTML = `
           <h3 class="poem-title">${poem.title}</h3>
           <p class="poem-preview">${poem.preview}</p>
           <a href="#" class="read-more" tabindex="-1" aria-hidden="true">Read full poem →</a>
         `;
-        grid.appendChild(card);
-      });
-    }
+      grid.appendChild(card);
+    });
+  }
 
-    // Create story cards dynamically
-    function createStoryCards() {
-      const grid = document.getElementById('storiesGrid');
-      grid.innerHTML = '';
-      stories.forEach((story, index) => {
-        const card = document.createElement('div');
-        card.className = 'story-card';
-        card.tabIndex = 0;
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-pressed', 'false');
-        card.setAttribute('aria-label', `Open full story titled ${story.title}`);
-        card.onclick = () => openModal('story', index);
-        card.onkeypress = (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal('story', index);
-          }
-        };
-        card.innerHTML = `
+  // Create story cards dynamically
+  function createStoryCards() {
+    const grid = document.getElementById('storiesGrid');
+    grid.innerHTML = '';
+    stories.forEach((story, index) => {
+      const card = document.createElement('div');
+      card.className = 'story-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-label', `Open full story titled ${story.title}`);
+      card.onclick = () => openModal('story', index);
+      card.onkeypress = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal('story', index);
+        }
+      };
+      card.innerHTML = `
           <h3 class="story-title">${story.title}</h3>
           <p class="story-preview">${story.preview}</p>
           <a href="#" class="read-story" tabindex="-1" aria-hidden="true">Read full story →</a>
         `;
-        grid.appendChild(card);
-      });
+      grid.appendChild(card);
+    });
+  }
+
+  // Open modal with poem or story details
+  function openModal(type, index) {
+    lastFocusedBtn = document.activeElement;
+    const modal = document.getElementById('poemModal');
+    document.getElementById('modalPoem').style.display = 'none';
+    document.getElementById('modalStory').style.display = 'none';
+
+    if (type === 'poem') {
+      const poem = poems[index];
+      document.getElementById('modalTitle').textContent = poem.title;
+      document.getElementById('modalDate').textContent = poem.date || '';
+      document.getElementById('modalPoem').textContent = poem.content;
+      document.getElementById('modalPoem').style.display = 'block';
+    } else if (type === 'story') {
+      const story = stories[index];
+      document.getElementById('modalTitle').textContent = story.title;
+      document.getElementById('modalDate').textContent = story.date || '';
+      document.getElementById('modalStory').textContent = story.content;
+      document.getElementById('modalStory').style.display = 'block';
     }
 
-    // Open modal with poem or story details
-    function openModal(type, index) {
-      const modal = document.getElementById('poemModal');
-      document.getElementById('modalPoem').style.display = 'none';
-      document.getElementById('modalStory').style.display = 'none';
-      if (type === 'poem') {
-        const poem = poems[index];
-        document.getElementById('modalTitle').textContent = poem.title;
-        document.getElementById('modalDate').textContent = poem.date || '';
-        document.getElementById('modalPoem').textContent = poem.content;
-        document.getElementById('modalPoem').style.display = 'block';
-      } else if (type === 'story') {
-        const story = stories[index];
-        document.getElementById('modalTitle').textContent = story.title;
-        document.getElementById('modalDate').textContent = story.date || '';
-        document.getElementById('modalStory').textContent = story.content;
-        document.getElementById('modalStory').style.display = 'block';
-      }
-      modal.style.display = 'block';
-      setTimeout(() => {
-        modal.classList.add('active');
-        modal.focus();
-      }, 10);
-      document.body.style.overflow = 'hidden';
-    }
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-modal', 'true');
+    setTimeout(() => {
+      modal.classList.add('active');
+      modal.focus();
+      trapFocus(modal);
+    }, 10);
+    document.body.style.overflow = 'hidden';
+  }
 
-
-    document.querySelectorAll('.tab-link[href^="#"]').forEach(link => {
+  document.querySelectorAll('.tab-link[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const targetId = this.getAttribute('href').slice(1);
       const target = document.getElementById(targetId);
       if (target) {
         window.scrollTo({
-          top: target.offsetTop - 40, // adjust offset for header
+          top: target.offsetTop - 40,
           behavior: 'smooth'
         });
       }
@@ -2321,13 +2356,16 @@ and I shut the iron grills behind you, I say:
   const closeBtn = document.getElementById('closeAboutMe');
 
   aboutBtn.addEventListener('click', () => {
+    lastFocusedBtn = document.activeElement;
     aboutModal.classList.add('open');
     document.body.classList.add('modal-open');
+    trapFocus(aboutModal);
   });
 
   closeBtn.addEventListener('click', () => {
     aboutModal.classList.remove('open');
     document.body.classList.remove('modal-open');
+    if (lastFocusedBtn) lastFocusedBtn.focus();
   });
 
   // Close modal on outside click
@@ -2335,147 +2373,141 @@ and I shut the iron grills behind you, I say:
     if (e.target === aboutModal) {
       aboutModal.classList.remove('open');
       document.body.classList.remove('modal-open');
+      if (lastFocusedBtn) lastFocusedBtn.focus();
     }
   });
 
   // Optional: Close modal on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
-      aboutModal.classList.remove('open');
-      document.body.classList.remove('modal-open');
+      if (aboutModal.classList.contains('open')) {
+        aboutModal.classList.remove('open');
+        document.body.classList.remove('modal-open');
+        if (lastFocusedBtn) lastFocusedBtn.focus();
+      }
+      const poemModal = document.getElementById('poemModal');
+      if (poemModal.classList.contains('active')) {
+        closeModal();
+      }
     }
   });
 
-    // Close modal
-    function closeModal() {
-      const modal = document.getElementById('poemModal');
-      modal.classList.remove('active');
-      setTimeout(() => {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }, 300);
+  // Close modal
+  function closeModal() {
+    const modal = document.getElementById('poemModal');
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-modal', 'false');
+    setTimeout(() => {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      if (lastFocusedBtn) lastFocusedBtn.focus();
+    }, 300);
+  }
+
+  // Close modal on outside click
+  window.onclick = function(event) {
+    const modal = document.getElementById('poemModal');
+    if (event.target === modal) {
+      closeModal();
     }
+  };
 
-    // Close modal on outside click
-    window.onclick = function(event) {
-      const modal = document.getElementById('poemModal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    };
+  // Initialize cards
+  createPoemCards();
+  createStoryCards();
 
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-      const modal = document.getElementById('poemModal');
-      if (event.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
+  // Quotes for cycling
+  const quoteList = [{
+    quote: `"Poetry is the art of creating imaginary gardens with real toads."`,
+    author: "— Marianne Moore"
+  }, {
+    quote: `"Poetry is when an emotion has found its thought and thought has found words."`,
+    author: "— Robert Frost"
+  }, {
+    quote: `"If you cannot be a poet, be the poem."`,
+    author: "— David Carradine"
+  }, {
+    quote: `"Poetry is thoughts that breathe, and words that burn."`,
+    author: "— Thomas Gray"
+  }, {
+    quote: `"You don't have to suffer to be a poet; adolescence is enough suffering for anyone."`,
+    author: "— John Ciardi"
+  }, {
+    quote: `"To read a poem is to hear it with our eyes; to hear it is to see it with our ears."`,
+    author: "— Octavio Paz"
+  }, {
+    quote: `"Poetry is an echo, asking a shadow to dance."`,
+    author: "— Carl Sandburg"
+  }, {
+    quote: `"I consider myself a poet first and a musician second. I live like a poet and I'll die like a poet."`,
+    author: "— Bob Dylan"
+  }, {
+    quote: `"Sometimes poetry is inspired by the conversation entered into by reading other poems."`,
+    author: "— John Barton"
+  }, {
+    quote: `"Poetry is a deal of joy and pain and wonder, with a dash of the dictionary."`,
+    author: "— Khalil Gibran"
+  }];
 
-    // Initialize cards
-    createPoemCards();
-    createStoryCards();
+  let quoteIndex = 0;
+  const quoteEl1 = document.getElementById("quote1");
+  const quoteEl2 = document.getElementById("quote2");
+  let showingFirst = true;
 
-    // Quotes for cycling
-    const quoteList = [
-      {
-        quote: `"Poetry is the art of creating imaginary gardens with real toads."`,
-        author: "— Marianne Moore"
-      },
-      {
-        quote: `"Poetry is when an emotion has found its thought and thought has found words."`,
-        author: "— Robert Frost"
-      },
-      {
-        quote: `"If you cannot be a poet, be the poem."`,
-        author: "— David Carradine"
-      },
-      {
-        quote: `"Poetry is thoughts that breathe, and words that burn."`,
-        author: "— Thomas Gray"
-      },
-      {
-        quote: `"You don't have to suffer to be a poet; adolescence is enough suffering for anyone."`,
-        author: "— John Ciardi"
-      },
-      {
-        quote: `"To read a poem is to hear it with our eyes; to hear it is to see it with our ears."`,
-        author: "— Octavio Paz"
-      },
-      {
-        quote: `"Poetry is an echo, asking a shadow to dance."`,
-        author: "— Carl Sandburg"
-      },
-      {
-        quote: `"I consider myself a poet first and a musician second. I live like a poet and I'll die like a poet."`,
-        author: "— Bob Dylan"
-      },
-      {
-        quote: `"Sometimes poetry is inspired by the conversation entered into by reading other poems."`,
-        author: "— John Barton"
-      },
-      {
-        quote: `"Poetry is a deal of joy and pain and wonder, with a dash of the dictionary."`,
-        author: "— Khalil Gibran"
-      }
-    ];
+  function cycleQuotes() {
+    quoteIndex = (quoteIndex + 1) % quoteList.length;
+    const nextQuote = quoteList[quoteIndex];
+    const incoming = showingFirst ? quoteEl2 : quoteEl1;
+    const outgoing = showingFirst ? quoteEl1 : quoteEl2;
 
-    let quoteIndex = 0;
-    const quoteEl1 = document.getElementById("quote1");
-    const quoteEl2 = document.getElementById("quote2");
-    let showingFirst = true;
+    incoming.innerHTML = `${nextQuote.quote}<div class="quote-author">${nextQuote.author}</div>`;
+    outgoing.classList.remove("active");
+    outgoing.classList.add("exit");
+    incoming.classList.remove("exit");
+    incoming.classList.add("active");
 
-    function cycleQuotes() {
-      quoteIndex = (quoteIndex + 1) % quoteList.length;
-      const nextQuote = quoteList[quoteIndex];
-      const incoming = showingFirst ? quoteEl2 : quoteEl1;
-      const outgoing = showingFirst ? quoteEl1 : quoteEl2;
-      incoming.innerHTML = `${nextQuote.quote}<div class="quote-author">${nextQuote.author}</div>`;
-      outgoing.classList.remove("active");
-      outgoing.classList.add("exit");
-      incoming.classList.remove("exit");
-      incoming.classList.add("active");
-      setTimeout(() => {
-        outgoing.classList.remove("exit");
-      }, 800);
-      showingFirst = !showingFirst;
-    }
+    setTimeout(() => {
+      outgoing.classList.remove("exit");
+    }, 800);
 
-    setInterval(cycleQuotes, 10000);
-  </script>
+    showingFirst = !showingFirst;
+  }
+  setInterval(cycleQuotes, 10000);
+</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function() {
     emailjs.init("8I6yQMKGaVeZQSA4J"); // Your EmailJS User ID
+    document.getElementById("helloForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-    document.getElementById("helloForm").addEventListener("submit", function (event) {
-        event.preventDefault();
+      let name = document.getElementById("helloName").value.trim();
+      let email = document.getElementById("helloEmail").value.trim();
+      let message = document.getElementById("helloMessage").value.trim();
 
-        let name = document.getElementById("helloName").value.trim();
-        let email = document.getElementById("helloEmail").value.trim();
-        let message = document.getElementById("helloMessage").value.trim();
+      if (name === "" || email === "" || message === "") {
+        alert("❌ Please fill out all fields.");
+        return;
+      }
 
-        if (name === "" || email === "" || message === "") {
-            alert("❌ Please fill out all fields.");
-            return;
-        }
-
-        emailjs.send("service_x4o76l6", "template_jzjhcdd", {
-            from_name: name,
-            from_email: email,
-            message: message
+      emailjs.send("service_x4o76l6", "template_jzjhcdd", {
+          from_name: name,
+          from_email: email,
+          message: message
         })
-        .then(function () {
-            alert("✅ Message sent successfully!");
-            document.getElementById("helloForm").reset();
+        .then(function() {
+          alert("✅ Message sent successfully!");
+          document.getElementById("helloForm").reset();
         })
-        .catch(function (error) {
-            alert("❌ Failed to send message. Check console for errors.");
-            console.error("EmailJS Error:", error);
+        .catch(function(error) {
+          alert("❌ Failed to send message. Check console for errors.");
+          console.error("EmailJS Error:", error);
         });
     });
-});
+  });
 </script>
 </body>
 </html>
