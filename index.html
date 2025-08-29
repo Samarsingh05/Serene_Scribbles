@@ -691,7 +691,7 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   width: 100%;
   min-height: 100%;
   padding: 60px 0 60px;
@@ -701,6 +701,23 @@ body.modal-open > *:not(#aboutMeModal):not(#sayHelloModal) {
   transition: background 0.3s;
 }
 
+@media (max-width: 768px) {
+  .poems-section {
+    background-attachment: scroll;
+    background-size: cover;
+  }
+}    
+
+@media (max-width: 480px) {
+  .poems-section,
+  .stories-section {
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+  }
+}
+    
+    
 .poems-title {
   font-family: 'Gabriela', serif;
   font-size: 2.5rem;
